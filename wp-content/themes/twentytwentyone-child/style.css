@@ -1,10 +1,25 @@
 /**
  * Theme Name:   WP Child Theme
  * Theme URI:    https://devrix.com
- * Description:  A Twenty Twenty-One child theme 
+ * Description:  A Twenty Twenty One child theme 
  * Author:       DevriX
  * Author URI:   https://devrix.com
  * Template:     twentytwentyone
  * Version:      1.0.0
  * Text Domain:  twentytwentyonechild
  */
+
+.page-template-full-width-template .entry-content {
+    width: 100%;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+ 
+.page-template-full-width-template .site-main {
+    margin: 0px;
+}
+
+.page-template-full-width-template .centered-image {
+    text-align: center;
+}
