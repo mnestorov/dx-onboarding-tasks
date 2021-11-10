@@ -23,3 +23,38 @@
 .page-template-full-width-template .centered-image {
     text-align: center;
 }
+
+ul.archives {
+    margin: 0;
+    padding: 0;
+}
+
+ul.archives li {
+    list-style: none; 
+    list-style-type: none;
+    margin: 0; 
+    padding: 0;
+}
+
+ul.archives li a {
+    list-style: none; 
+    list-style-type: none;
+    margin: 0 20px 15px 0; 
+    float: left; 
+    background: #eee; 
+    color: #464646; 
+    padding: 5px 10px;
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px;
+}
+
+ul.archives li a:hover{
+    text-decoration: none; 
+    background: #c5c5c5; 
+    color: #fff;
+}
+
+.clear{
+    clear: both;
+}
