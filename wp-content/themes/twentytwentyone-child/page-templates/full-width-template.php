@@ -22,7 +22,7 @@ get_header();
 
 		<!-- Dixy image -->
 		<div class="centered-image">
-			<img src="<?php echo get_stylesheet_directory_uri() . '/assets/images/dixy.png'; ?>" title="Dixy" alt="image" width="250">
+			<img src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/assets/images/dixy.png'; ?>" title="Dixy" alt="image" width="250">
 		</div>
 
 	<?php endif; ?>
