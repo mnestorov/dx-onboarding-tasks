@@ -24,6 +24,10 @@
     text-align: center;
 }
 
+.entry-title {
+    margin-top: 15px;
+}
+
 ul.archives {
     margin: 0;
     padding: 0;
@@ -57,4 +61,25 @@ ul.archives li a:hover{
 
 .clear{
     clear: both;
+}
+
+/* Pagination */
+
+.pagination {
+    text-align: center;
+    margin: 55px auto;
+    border: none !important;
+}
+
+.page-numbers {
+    margin: 0 10px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+    line-height: 32px;
+}
+
+.page-numbers.current {
+    color: #c00;
+    padding: 5px;
 }
