@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name
+ * My Onboarding Plugin
  *
  * @package           MyOnboardingPlugin
  * @author            Martin Nestorov
@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:       My Onboarding Plugin
  * Plugin URI:        https://github.com/mnestorov/wordpress/wp-content/plugins/my-onboarding-plugin
- * Description:       Learning how to create a plugin.
+ * Description:       Learning how to create a plugin, OOP way.
  * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
@@ -38,32 +38,56 @@ along with My Onboarding Plugin. If not, see {URI to Plugin License}.
 */
 
 /**
- * Register the "book" custom post type
+ * If this file is called directly, then abort execution
  */
-function mop_setup_post_type() {
-	register_post_type( 'book', array( 'public' => true ) );
-}
-
-add_action( 'init', 'mop_setup_post_type' );
-
-/**
- * Activation hook (activate the plugin)
- */
-function mop_activate() {
-	// Trigger our function that registers the custom post type plugin.
-	mop_setup_post_type();
-	// Clear the permalinks after the post type has been registered.
-	flush_rewrite_rules();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 /**
- * Deactivation hook (deactivate the plugin)
+ * Define DIR_PATH constant for hooks
  */
-function mop_deactivate() {
-	// Unregister the post type, so the rules are no longer in memory.
-	unregister_post_type( 'book' );
-	// Clear the permalinks to remove our post type's rules from the database.
-	flush_rewrite_rules();
-}
+define( 'DIR_PATH', plugin_dir_path( __FILE__ ) );
 
-register_deactivation_hook( __FILE__, 'mop_deactivate' );
+if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
+	/**
+	 * Class MyOnboardingPlugin
+	 *
+	 * @package    MyOnboardingPlugin
+	 * @author     Martin Nestorov
+	 */
+	class MyOnboardingPlugin {
+
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			$this->setup_actions();
+		}
+
+		/**
+		 * Setting up Hooks
+		 */
+		public function setup_actions() {
+			register_activation_hook( DIR_PATH, array( 'MyOnboardingPlugin', 'activate' ) );
+			register_deactivation_hook( DIR_PATH, array( 'MyOnboardingPlugin', 'deactivate' ) );
+		}
+
+		/**
+		 * Activate callback
+		 */
+		public static function activate() {
+			// Activation code in here.
+		}
+
+		/**
+		 * Deactivate callback
+		 */
+		public static function deactivate() {
+			// Deactivation code in here.
+		}
+	}
+
+	// Instantiate the plugin class.
+	$wp_plugin_template = new MyOnboardingPlugin();
+}
