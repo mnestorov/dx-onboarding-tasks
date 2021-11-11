@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define DIR_PATH constant for hooks
  */
-define( 'DIR_PATH', plugin_dir_path( __FILE__ ) );
+define( 'MOP_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
 if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 	/**
@@ -62,15 +62,15 @@ if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			$this->setup_actions();
+			add_action( 'plugins_loaded', array( $this, 'setup_actions' ) );
 		}
 
 		/**
 		 * Setting up Hooks
 		 */
 		public function setup_actions() {
-			register_activation_hook( DIR_PATH, array( 'MyOnboardingPlugin', 'activate' ) );
-			register_deactivation_hook( DIR_PATH, array( 'MyOnboardingPlugin', 'deactivate' ) );
+			register_activation_hook( MOP_DIR_PATH, array( 'MyOnboardingPlugin', 'activate' ) );
+			register_deactivation_hook( MOP_DIR_PATH, array( 'MyOnboardingPlugin', 'deactivate' ) );
 		}
 
 		/**
