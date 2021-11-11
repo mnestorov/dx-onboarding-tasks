@@ -8,14 +8,17 @@
 
 get_header(); ?>
 
-<div id="primary" class="entry-content">
-	<main class="site-main" role="main">
+<?php if ( is_page( 'pages-archive' ) ) : ?>
+	<header class="page-header alignwide">
+		<h1 class="page-title"><?php single_post_title(); ?></h1>
+	</header><!-- .page-header -->
+<?php endif; ?>
+
+<?php if ( have_posts() ) : ?>
 
 	<?php while ( have_posts() ) : ?>
 
 		<?php the_post(); ?>
-
-		<h1 class="entry-title"><?php the_title(); ?></h1>
 
 		<div class="entry-content">
 
@@ -44,8 +47,12 @@ get_header(); ?>
 
 	<?php endwhile; ?>
 
-	</main>
-</div><!-- #primary -->
+	<?php wp_reset_postdata(); ?>
 
+<?php else : ?>
+
+	<?php get_template_part( 'template-parts/content/content-none' ); // If no content, include the "No posts found" template. ?>
+
+<?php endif; ?>
 
 <?php get_footer(); ?>

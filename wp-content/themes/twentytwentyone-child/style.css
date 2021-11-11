@@ -45,18 +45,17 @@ ul.archives li a {
     list-style-type: none;
     margin: 0 20px 15px 0; 
     float: left; 
-    background: #eee; 
-    color: #464646; 
+    background-color: #28303D;
+    border: 3px solid #28303D;
+    color: #D1E4EE;
     padding: 5px 10px;
-    border-radius: 5px; 
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px;
+    text-decoration: none; 
 }
 
 ul.archives li a:hover{
-    text-decoration: none; 
-    background: #c5c5c5; 
-    color: #fff;
+    background-color: transparent;
+    border: 3px solid #28303D;
+	color: inherit;
 }
 
 .clear{

@@ -6,97 +6,62 @@
  * @subpackage Twenty_Twenty_One
  */
 
-get_header();
+get_header(); ?>
 
+<?php if ( is_page( 'posts-archive' ) ) : ?>
+	<header class="page-header alignwide">
+		<h1 class="page-title"><?php single_post_title(); ?></h1>
+	</header><!-- .page-header -->
+<?php endif; ?>
+
+<?php
+$posts_query = new WP_Query(
+	array(
+		'post_type'      => 'post',
+		'post_status'    => 'publish',
+		'posts_per_page' => 5,
+		'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+	)
+);
 ?>
 
-<section>
-	<header class="page-header alignwide">
-
-		<?php if ( have_posts() ) : ?>
-
-			<?php while ( have_posts() ) : ?>
-
-				<?php the_post(); ?>
-
-				<h1 class="entry-title"><?php echo esc_html( get_the_title() ); ?></h1>
-
-				<div class="entry-content">
-					<?php the_content(); ?>
-				</div>
-
-			<?php endwhile; ?>
-
-		<?php endif; ?>
-
-		<?php wp_reset_postdata(); ?>
-	</header>
-</section>
-
-<section class="entry-content">
+<?php if ( $posts_query->have_posts() ) : ?>
 
 	<?php
-	$posts_query = new WP_Query(
-		array(
-			'post_type'      => 'post',
-			'post_status'    => 'publish',
-			'posts_per_page' => 5,
-			'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
-		)
-	);
+	// Load posts loop.
+	while ( $posts_query->have_posts() ) {
+		$posts_query->the_post();
+		get_template_part( 'template-parts/content/content', get_theme_mod( 'display_excerpt_or_full_post', 'excerpt' ) );
+	}
 	?>
 
-	<?php if ( $posts_query->have_posts() ) : ?>
+	<?php $total_pages = $posts_query->max_num_pages; // Load More posts button. ?>
 
-		<div>
-			<?php while ( $posts_query->have_posts() ) : ?>
+	<?php if ( $total_pages > 1 ) : ?>
 
-				<?php $posts_query->the_post(); ?>
+		<?php $current_page = max( 1, get_query_var( 'paged' ) );  ?>
 
-				<div>
-
-					<?php if ( has_post_thumbnail( get_the_ID() ) ) : ?>
-						<div>
-							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
-						</div>
-					<?php endif; ?>
-
-					<div class="entry-title">
-						<a href="<?php the_permalink(); ?>"><h3><?php the_title(); ?></h3></a>
-					</div>
-
-				</div><!-- archive-item -->
-
-			<?php endwhile; ?>
+		<div class="pagination">
+			<?php
+			echo paginate_links(
+				array(
+					'base'    => get_pagenum_link( 1 ) . '%_%',
+					'format'  => 'page/%#%',
+					'current' => $current_page,
+					'total'   => $total_pages,
+				)
+			);
+			?>
 		</div>
 
-		<?php $total_pages = $posts_query->max_num_pages; ?>
-
-		<?php if ( $total_pages > 1 ) : ?>
-
-			<?php $current_page = max( 1, get_query_var( 'paged' ) ); ?>
-
-			<div class="pagination">
-				<?php echo paginate_links(
-					array(
-						'base'    => get_pagenum_link( 1 ) . '%_%',
-						'format'  => 'page/%#%',
-						'current' => $current_page,
-						'total'   => $total_pages,
-					)
-				);
-				?>
-			</div>
-
-		<?php endif; ?>
-
-		<?php wp_reset_postdata(); ?>
-
-	<?php else : ?>
-
-		<?php echo esc_html__( 'No posts matching the query were found.', 'twentytwentyone' ); ?>
-
 	<?php endif; ?>
-</section>
+
+	<?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+
+	<?php get_template_part( 'template-parts/content/content-none' ); // If no content, include the "No posts found" template. ?>
+
+<?php endif; ?>
 
 <?php get_footer(); ?>
