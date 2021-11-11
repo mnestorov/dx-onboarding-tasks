@@ -63,6 +63,8 @@ if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'plugins_loaded', array( $this, 'setup_actions' ) );
+			add_filter( 'the_content', array( $this, 'isert_before_content' ) );
+			add_filter( 'the_content', array( $this, 'insert_after_content' ) );
 		}
 
 		/**
@@ -85,6 +87,33 @@ if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 		 */
 		public static function deactivate() {
 			// Deactivation code in here.
+		}
+
+		/**
+		 * Insert before content
+		 */
+		public function isert_before_content( $content ) {
+			$before_content = 'Onboarding Filter: ';
+			$user_name = 'Martin Nestorov';
+
+			if ( is_single() && ! is_home() && ! is_admin() ) {
+				$content = '<p style="text-align:center;">' . $before_content . $user_name . '</p>' . $content;
+			}
+
+			return $content;
+		}
+
+		/**
+		 * Insert custom content
+		 */
+		public function insert_after_content( $content ) {
+			$after_content = '<div></div>';
+
+			if ( is_single() && ! is_home() && ! is_admin() ) {
+				$content = $content . $after_content;
+			}
+
+			return $content;
 		}
 	}
 
