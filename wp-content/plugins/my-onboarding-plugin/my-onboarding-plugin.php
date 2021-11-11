@@ -58,6 +58,8 @@ if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 	 */
 	class MyOnboardingPlugin {
 
+		protected $id = array( 1, 2 );
+
 		/**
 		 * Constructor
 		 */
@@ -65,6 +67,7 @@ if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'setup_actions' ) );
 			add_filter( 'the_content', array( $this, 'isert_before_content' ) );
 			add_filter( 'the_content', array( $this, 'insert_after_content' ) );
+			add_filter( 'the_content', array( $this, 'insert_after_last_div' ), 20 );
 		}
 
 		/**
@@ -96,7 +99,7 @@ if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 			$before_content = 'Onboarding Filter: ';
 			$user_name = 'Martin Nestorov';
 
-			if ( is_single() && ! is_home() && ! is_admin() ) {
+			if ( is_single() ) {
 				$content = '<p style="text-align:center;">' . $before_content . $user_name . '</p>' . $content;
 			}
 
@@ -104,13 +107,26 @@ if ( ! class_exists( 'MyOnboardingPlugin' ) ) {
 		}
 
 		/**
-		 * Insert custom content
+		 * Insert after content
 		 */
 		public function insert_after_content( $content ) {
-			$after_content = '<div></div>';
+			$after_content = '<div id="' . $this->id[0] . '"></div>';
 
-			if ( is_single() && ! is_home() && ! is_admin() ) {
+			if ( is_single() ) {
 				$content = $content . $after_content;
+			}
+
+			return $content;
+		}
+
+		/**
+		 * Insert after last div
+		 */
+		public function insert_after_last_div( $content ) {
+			$after_last_div = '<div id="' . $this->id[1] . '"></div>';
+
+			if ( is_single() ) {
+				$content = $content . $after_last_div;
 			}
 
 			return $content;
