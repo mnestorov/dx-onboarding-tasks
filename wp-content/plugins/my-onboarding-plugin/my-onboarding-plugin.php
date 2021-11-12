@@ -22,6 +22,7 @@
  * Update URI:        https://github.com/mnestorov/wordpress/wp-content/plugins/my-onboarding-plugin
  */
 
+
 /*
 My Onboarding Plugin is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,12 +44,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Include the classes
- */
-require_once 'includes/class-my-onboarding-plugin.php';
-require_once 'includes/class-insert-content.php';
-
-/**
  * Define DIR_PATH constant for hooks
  */
 define( 'MOP_DIR_PATH', plugin_dir_path( __FILE__ ) );
+
+/**
+ * Include the classes
+ */
+require_once 'includes/class-init.php';
+require_once 'includes/class-insert.php';
+
+// Instantiate the plugin class.
+$wp_plugin_template = new Init();
