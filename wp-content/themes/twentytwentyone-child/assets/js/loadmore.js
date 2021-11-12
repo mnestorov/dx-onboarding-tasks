@@ -36,11 +36,11 @@ jQuery(document).ready(function ($) {
 
 	// Infinite scroll
 	$(function($){
-		var canBeLoaded = true,
+		let canBeLoaded = true,
 			bottomOffset = 9000;
 	
 		$(window).scroll(function(){
-			var data = {
+			let data = {
 				'action': 'loadmore',
 				'query': loadmore_params.posts,
 				'page' : loadmore_params.current_page
