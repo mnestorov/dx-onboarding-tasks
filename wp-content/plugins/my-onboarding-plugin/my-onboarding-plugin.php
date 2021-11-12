@@ -53,6 +53,7 @@ define( 'MOP_DIR_PATH', plugin_dir_path( __FILE__ ) );
  */
 require_once 'includes/class-init.php';
 require_once 'includes/class-insert.php';
+require_once 'includes/class-admin-menu.php';
 
 // Instantiate the plugin class.
 $wp_plugin_template = new Init();

@@ -32,6 +32,7 @@ if ( ! class_exists( 'Init' ) ) {
 
 		private function load_dependencies() {
 			$this->loader = new Insert();
+			$this->loader = new AdminMenu();
 		}
 
 		/**
