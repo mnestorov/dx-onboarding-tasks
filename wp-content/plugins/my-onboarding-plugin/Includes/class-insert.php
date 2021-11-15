@@ -23,12 +23,16 @@ if ( ! class_exists( 'Insert' ) ) {
 		 * Insert before content
 		 */
 		public function insert_before_content( $content ) {
+			$my_onboarding_plugin_option = get_option( 'my_onboarding_plugin_option' );
+
 			$before_content = 'Onboarding Filter: ';
 			$user_name = 'Martin Nestorov';
 
 			if ( is_single() ) {
-				$content = '<p style="text-align:center;">' . $before_content . $user_name . '</p>' . $content;
-				$content .= '<div></div>';
+				if ( $my_onboarding_plugin_option ) {
+					$content = '<p style="text-align:center;">' . $before_content . $user_name . '</p>' . $content;
+					$content .= '<div></div>';
+				}
 			}
 
 			return $content;
