@@ -15,6 +15,11 @@ if ( ! class_exists( 'Init' ) ) {
 		protected $loader;
 
 		/**
+		 * Option filter
+		 */
+		protected $my_onboarding_plugin_option;
+
+		/**
 		 * Constructor
 		 */
 		public function __construct() {
@@ -31,8 +36,13 @@ if ( ! class_exists( 'Init' ) ) {
 		}
 
 		private function load_dependencies() {
-			$this->loader = new Insert();
 			$this->loader = new AdminMenu();
+
+			$this->my_onboarding_plugin_option = get_option( 'my_onboarding_plugin_option' );
+
+			if ( ! $this->my_onboarding_plugin_option ) {
+				$this->loader = new Insert();
+			}
 		}
 
 		/**
