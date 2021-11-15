@@ -13,7 +13,7 @@ class AdminMenu {
 	}
 
 	public function create_menu() {
-		add_submenu_page( 'options-general.php', 'My Onboarding', 'My Onboarding', 'manage_options', 'mop_page', array( $this, 'display_mop_page' ) );
+		add_menu_page( 'My Onboarding', 'My Onboarding', 'manage_options', 'mop_page', array( $this, 'display_mop_page' ) );
 	}
 
 	public function display_mop_page() {
