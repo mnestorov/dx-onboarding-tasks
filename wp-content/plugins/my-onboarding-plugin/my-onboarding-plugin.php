@@ -22,7 +22,6 @@
  * Update URI:        https://github.com/mnestorov/wordpress/wp-content/plugins/my-onboarding-plugin
  */
 
-
 /*
 My Onboarding Plugin is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,14 +45,75 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define DIR_PATH constant for hooks
  */
-define( 'MOP_DIR_PATH', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'MOP_DIR_PATH' ) ) {
+	define( 'MOP_DIR_PATH', plugin_dir_path( __FILE__ ) );
+}
 
-/**
- * Include the classes
- */
-require_once 'includes/class-init.php';
-require_once 'includes/class-insert.php';
-require_once 'includes/class-admin-menu.php';
+if ( ! class_exists( 'MOP_Init' ) ) {
+	/**
+	 * Class MOP_Init
+	 *
+	 * @package    MyOnboardingPlugin
+	 * @author     Martin Nestorov
+	 */
+	class MOP_Init {
 
-// Instantiate the plugin class.
-$wp_plugin_template = new Init();
+		/**
+		 * Registering all classes that power the plugin.
+		 */
+		protected $loader;
+
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			add_action( 'plugins_loaded', array( $this, 'mop_include_classes' ), 10 );
+			add_action( 'plugins_loaded', array( $this, 'mop_setup_actions' ), 20 );
+			add_action( 'init', array( $this, 'mop_load_dependencies' ), 30 );
+		}
+
+		/**
+		 * This function includes all the classes/traits on the plugins_loaded with priority
+		 * 10 in order to be easily overwritten.
+		 */
+		public function mop_include_classes() {
+			// Include the classes.
+			require_once MOP_DIR_PATH . 'includes/admin/class-mop-plugin-settings.php';
+			require_once MOP_DIR_PATH . 'includes/admin/class-mop-scripts.php';
+			require_once MOP_DIR_PATH . 'includes/front/class-mop-insert.php';
+		}
+
+		/**
+		 * Load dependencies classes
+		 */
+		public function mop_load_dependencies() {
+			$this->loader = new MOP_Scripts();
+			$this->loader = new MOP_Insert();
+			$this->loader = new MOP_PluginSettings();
+		}
+
+		/**
+		 * Setting up Hooks
+		 */
+		public function mop_setup_actions() {
+			register_activation_hook( MOP_DIR_PATH, array( $this, 'mop_activate' ) );
+			register_deactivation_hook( MOP_DIR_PATH, array( $this, 'mop_deactivate' ) );
+		}
+
+		/**
+		 * Activate callback
+		 */
+		public static function mop_activate() {
+			// Activation code in here.
+		}
+
+		/**
+		 * Deactivate callback
+		 */
+		public static function mop_deactivate() {
+			// Deactivation code in here.
+		}
+	}
+
+	new MOP_Init();
+}

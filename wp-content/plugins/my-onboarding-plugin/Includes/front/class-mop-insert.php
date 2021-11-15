@@ -1,28 +1,28 @@
 <?php
 
-if ( ! class_exists( 'Insert' ) ) {
+if ( ! class_exists( 'MOP_Insert' ) ) {
 	/**
-	 * Class Insert
+	 * Class MOP_Insert
 	 *
 	 * @package    MyOnboardingPlugin
 	 * @author     Martin Nestorov
 	 */
-	class Insert {
+	class MOP_Insert {
 
 		/**
 		 * Constructor
 		 */
 		public function __construct() {
-			add_filter( 'the_content', array( $this, 'insert_before_content' ), 10 );
-			add_filter( 'the_content', array( $this, 'opening_p' ), 9 );
-			add_filter( 'the_content', array( $this, 'closing_p' ), 11 );
-			// add_filter( 'the_content', array( $this, 'text_wrapper' ) );
+			add_filter( 'the_content', array( $this, 'mop_insert_before_content' ), 10 );
+			add_filter( 'the_content', array( $this, 'mop_opening_p' ), 9 );
+			add_filter( 'the_content', array( $this, 'mop_closing_p' ), 11 );
+			// add_filter( 'the_content', array( $this, 'mop_text_wrapper' ) );
 		}
 
 		/**
 		 * Insert before content
 		 */
-		public function insert_before_content( $content ) {
+		public function mop_insert_before_content( $content ) {
 			if ( ! is_single() ) {
 				return $content;
 			}
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Insert' ) ) {
 		/**
 		 * Insert open <p> tag
 		 */
-		public function opening_p( $content ) {
+		public function mop_opening_p( $content ) {
 			$content = $content . '<p>';
 			return $content;
 		}
@@ -53,7 +53,7 @@ if ( ! class_exists( 'Insert' ) ) {
 		/**
 		 * Insert closing </p> tag
 		 */
-		public function closing_p( $content ) {
+		public function mop_closing_p( $content ) {
 			$content = $content . '</p>';
 			return $content;
 		}
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Insert' ) ) {
 		/**
 		 * Wrap <div> around <p> tags
 		 */
-		/* public function text_wrapper( $content ) {
+		/* public function mop_text_wrapper( $content ) {
 			return preg_replace_callback(
 				'~<p.*?</p>~',
 				function( $matches ) {
