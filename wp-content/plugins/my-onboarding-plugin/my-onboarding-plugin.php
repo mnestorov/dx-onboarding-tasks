@@ -68,7 +68,7 @@ if ( ! class_exists( 'MOP_Init' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'plugins_loaded', array( $this, 'mop_include_classes' ), 10 );
-			add_action( 'plugins_loaded', array( $this, 'mop_setup_actions' ), 10 );
+			add_action( 'plugins_loaded', array( $this, 'mop_setup_actions' ), 20 );
 			add_action( 'init', array( $this, 'mop_load_dependencies' ), 0 );
 		}
 

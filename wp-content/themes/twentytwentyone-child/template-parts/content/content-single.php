@@ -19,24 +19,7 @@
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-		<?php if ( is_single( '1' ) ) : // check the post id. ?>
-
-			<!-- showing the post excerpt -->
-			<?php the_excerpt(); ?>
-
-			<!-- post main content -->
-			<?php the_content(); ?>
-
-			<!-- Dixy image -->
-			<div>
-				<img src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/assets/images/dixy.png'; ?>" title="Dixy" alt="image" width="250">
-			</div>
-
-		<?php else : ?>
-
-			<?php the_content(); ?>
-
-		<?php endif; ?>	
+		<?php the_content(); ?>
 
 		<?php
 		wp_link_pages(

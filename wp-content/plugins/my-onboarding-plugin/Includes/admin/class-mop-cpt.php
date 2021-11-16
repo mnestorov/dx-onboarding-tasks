@@ -47,7 +47,7 @@ if ( ! class_exists( 'MOP_Cpt' ) ) {
 				'public' 				=> true,
 				'publicly_queryable' 	=> true,
 				'show_ui' 				=> true,
-				'has_archive' 			=> false,
+				'has_archive' 			=> true,
 				'show_in_menu' 			=> true,
 				'show_in_nav_menus' 	=> true,
 				'delete_with_user' 		=> false,
