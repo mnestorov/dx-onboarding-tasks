@@ -24,7 +24,7 @@ if ( ! class_exists( 'MOP_Scripts' ) ) {
 				return;
 			}
 
-			wp_enqueue_script( 'ajax-script', plugins_url( '/assets/js/main.js', __FILE__ ), array( 'jquery' ), false, true );
+			wp_enqueue_script( 'mop_scripts', plugins_url( '/assets/js/main.js', __FILE__ ), array( 'jquery' ), false, true );				
 		}
 	}
 }

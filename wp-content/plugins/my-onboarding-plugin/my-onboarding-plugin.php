@@ -68,8 +68,8 @@ if ( ! class_exists( 'MOP_Init' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'plugins_loaded', array( $this, 'mop_include_classes' ), 10 );
-			add_action( 'plugins_loaded', array( $this, 'mop_setup_actions' ), 20 );
-			add_action( 'init', array( $this, 'mop_load_dependencies' ), 30 );
+			add_action( 'plugins_loaded', array( $this, 'mop_setup_actions' ), 10 );
+			add_action( 'init', array( $this, 'mop_load_dependencies' ), 0 );
 		}
 
 		/**
@@ -80,6 +80,7 @@ if ( ! class_exists( 'MOP_Init' ) ) {
 			// Include the classes.
 			require_once MOP_DIR_PATH . 'includes/admin/class-mop-plugin-settings.php';
 			require_once MOP_DIR_PATH . 'includes/admin/class-mop-scripts.php';
+			require_once MOP_DIR_PATH . 'includes/admin/class-mop-cpt.php';
 			require_once MOP_DIR_PATH . 'includes/front/class-mop-insert.php';
 		}
 
@@ -87,6 +88,7 @@ if ( ! class_exists( 'MOP_Init' ) ) {
 		 * Load dependencies classes
 		 */
 		public function mop_load_dependencies() {
+			$this->loader = new MOP_Cpt();
 			$this->loader = new MOP_Scripts();
 			$this->loader = new MOP_Insert();
 			$this->loader = new MOP_PluginSettings();

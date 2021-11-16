@@ -8,7 +8,7 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 	 * @author     Martin Nestorov
 	 */
 	class MOP_PluginSettings {
-		
+
 		private $mop_options;
 
 		public function __construct() {
@@ -32,7 +32,7 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 			$this->mop_options = get_option( 'my_onboarding_plugin_option' ); ?>
 
 			<div class="wrap">
-				<h2>My Onboarding Plugin</h2>
+				<h2><?php esc_html_e( 'My Onboarding Plugin', 'mop'); ?></h2>
 				<p></p>
 				<?php settings_errors(); ?>
 				<form method="post" action="options.php">
@@ -62,7 +62,7 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 
 			add_settings_field(
 				'filter',                            // This is id.
-				'FIlter',                            // This is title.
+				'Filter',                            // This is title.
 				array( $this, 'mop_filter_callback' ),   // This is callback.
 				'mop-admin',                         // This is page.
 				'mop_setting_section'                // This is section.
@@ -79,14 +79,15 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 		}
 
 		public function mop_section_info() {
-
+			// Add some code in here.
 		}
 
 		public function mop_filter_callback() {
 			printf(
-				'<input type="checkbox" name="my_onboarding_plugin_option[filter]" id="filter" value="filter" %s>',
+				'<input type="checkbox" name="my_onboarding_plugin_option[filter]" id="filter" class="filter_checkbox" value="filter" %s>',
 				( isset( $this->mop_options['filter'] ) ?? 'filter' ) ? 'checked' : ''
 			);
+			esc_html_e( 'Example description.', 'text-domain' );
 		}
 	}
 }
