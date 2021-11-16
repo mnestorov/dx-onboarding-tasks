@@ -27,7 +27,7 @@ if ( ! class_exists( 'MOP_Insert' ) ) {
 				return $content;
 			}
 
-			if ( ! get_option( 'mop_is_checked' ) ) {
+			if ( ! get_option( 'is_checked' ) ) {
 				return $content;
 			}
 

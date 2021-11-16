@@ -48,8 +48,9 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 
 		public function mop_page_init() {
 			register_setting(
-				'mop_option_group',                  // This is option_group.
-				'mop_is_checked',     				 // This is option_name.
+				'mop_option_group',                 // This is option_group.
+				'is_checked',     					// This is option_name.
+				//array( $this, 'mop_sanitize' )    // This is sanitize_callback.
 			);
 
 			add_settings_section(
@@ -68,6 +69,8 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 			);
 		}
 
+		
+
 		public function mop_section_info() {
 			// Add some code in here.
 		}
@@ -78,18 +81,18 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 			} ?>
 
 			<div>
-				<input type="checkbox" id="mop_filters_checkbox" name="checkbox" <?php echo esc_attr( get_option( 'mop_is_checked' ) ); ?>>
-				<label for="checkbox">Filters enabled</label>
+				<input type="checkbox" id="mop_filters_checkbox" name="checkbox" <?php echo get_option( 'is_checked' ); ?>>
+				<label for="checkbox">Enabled / Disabled</label>
 			</div><?php
 		}
 
 		/**
-		 * Handles the AJAX response from the checkbox.js
+		 * Handles the AJAX response from the main.js
 		 */
 		public function mop_enable_filters() {
-			$mop_is_checked = $_POST['mop_is_checked'];
+			$is_checked = $_POST['is_checked'];
 
-			update_option( 'mop_is_checked', $mop_is_checked );
+			update_option( 'is_checked', $is_checked );
 
 			wp_die();
 		}
@@ -99,7 +102,7 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 		 * @return bool
 		 */
 		public function mop_filters_enabled() {
-			return get_option( 'mop_is_checked' ) === 'checked';
+			return get_option( 'is_checked' ) === 'checked';
 		}
 	}
 }

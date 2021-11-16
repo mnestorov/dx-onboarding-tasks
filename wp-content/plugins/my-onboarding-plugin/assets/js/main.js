@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
     var data = {
         'action': 'mop_enable_filters',
-        'is_checked': mop_enabled_filters_object.mop_is_checked
+        'is_checked': mop_enabled_filters_object.is_checked
     };
 
     jQuery.post(mop_enabled_filters_object.mop_enabled_filters_url, data, function(response) {

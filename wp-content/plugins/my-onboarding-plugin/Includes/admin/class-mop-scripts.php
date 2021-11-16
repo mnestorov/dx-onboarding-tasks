@@ -26,7 +26,7 @@ if ( ! class_exists( 'MOP_Scripts' ) ) {
 				'mop_enabled_filters_object',
 				array(
 					'mop_enabled_filters_url' => admin_url( 'admin-ajax.php' ),
-					'mop_is_checked'          => get_option( 'mop_is_checked' ),
+					'is_checked'          => get_option( 'is_checked' ),
 				)
 			);
 		}
