@@ -9,11 +9,11 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 	 */
 	class MOP_PluginSettings {
 
-		private $mop_options;
-
 		public function __construct() {
+			$this->mop_filters_enabled();
 			add_action( 'admin_menu', array( $this, 'mop_add_plugin_page' ) );
 			add_action( 'admin_init', array( $this, 'mop_page_init' ) );
+			add_action( 'wp_ajax_mop_enable_filters', array( $this, 'mop_enable_filters' ) );
 		}
 
 		public function mop_add_plugin_page() {
@@ -39,7 +39,7 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 					<?php
 						settings_fields( 'mop_option_group' );
 						do_settings_sections( 'mop-admin' );
-						submit_button();
+						//submit_button();
 					?>
 				</form>
 			</div>
@@ -48,9 +48,8 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 
 		public function mop_page_init() {
 			register_setting(
-				'mop_option_group',                // This is option_group.
-				'my_onboarding_plugin_option',     // This is option_name.
-				array( $this, 'mop_sanitize' )     // This is sanitize_callback.
+				'mop_option_group',                  // This is option_group.
+				'mop_is_checked',     				 // This is option_name.
 			);
 
 			add_settings_section(
@@ -61,7 +60,7 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 			);
 
 			add_settings_field(
-				'filter',                            // This is id.
+				'mop-checkbox',                            // This is id.
 				'Filter',                            // This is title.
 				array( $this, 'mop_filter_callback' ),   // This is callback.
 				'mop-admin',                         // This is page.
@@ -69,25 +68,38 @@ if ( ! class_exists( 'MOP_PluginSettings' ) ) {
 			);
 		}
 
-		public function mop_sanitize( $input ) {
-			$sanitary_values = array();
-			if ( isset( $input['filter'] ) ) {
-				$sanitary_values['filter'] = sanitize_text_field( $input['filter'] );
-			}
-
-			return $sanitary_values;
-		}
-
 		public function mop_section_info() {
 			// Add some code in here.
 		}
 
 		public function mop_filter_callback() {
-			printf(
-				'<input type="checkbox" name="my_onboarding_plugin_option[filter]" id="filter" class="filter_checkbox" value="filter" %s>',
-				( isset( $this->mop_options['filter'] ) ?? 'filter' ) ? 'checked' : ''
-			);
-			esc_html_e( 'Example description.', 'text-domain' );
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( __( 'You don\'t have permissions to access this page.' ) );
+			} ?>
+
+			<div>
+				<input type="checkbox" id="mop_filters_checkbox" name="checkbox" <?php echo esc_attr( get_option( 'mop_is_checked' ) ); ?>>
+				<label for="checkbox">Filters enabled</label>
+			</div><?php
+		}
+
+		/**
+		 * Handles the AJAX response from the checkbox.js
+		 */
+		public function mop_enable_filters() {
+			$mop_is_checked = $_POST['mop_is_checked'];
+
+			update_option( 'mop_is_checked', $mop_is_checked );
+
+			wp_die();
+		}
+
+		/**
+		 * Checks if the filters in the admin menu are enabled
+		 * @return bool
+		 */
+		public function mop_filters_enabled() {
+			return get_option( 'mop_is_checked' ) === 'checked';
 		}
 	}
 }

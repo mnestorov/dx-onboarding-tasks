@@ -27,9 +27,7 @@ if ( ! class_exists( 'MOP_Insert' ) ) {
 				return $content;
 			}
 
-			$my_onboarding_plugin_option = get_option( 'my_onboarding_plugin_option' );
-
-			if ( ! $my_onboarding_plugin_option ) {
+			if ( ! get_option( 'mop_is_checked' ) ) {
 				return $content;
 			}
 
