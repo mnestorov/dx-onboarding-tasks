@@ -8,7 +8,6 @@ if ( ! class_exists( 'InsertContent' ) ) {
 	 * @author     Martin Nestorov
 	 */
 	class InsertContent {
-
 		/**
 		 * Constructor
 		 */
@@ -18,7 +17,6 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			add_filter( 'the_content', array( $this, 'dx_closing_p' ), 11 );
 			add_filter( 'the_content', array( $this, 'dx_text_wrapper' ) );
 		}
-
 		/**
 		 * Insert text before post content
 		 */
@@ -26,21 +24,17 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			if ( ! is_single() ) {
 				return $content;
 			}
-
 			/**
 			 * Important:
 			 * 1) get_option( 'my-onboarding-plugin-option' ) comes from PluginSettings plugin
 			 * 2) get_option( 'is-checked' ) comes from PluginFilter plugin
 			 */
-
 			if ( get_option( 'is_checked' ) ) {
 				$before_content = 'Onboarding Filter by Martin Nestorov: ';
 				$content        = '<p>' . $before_content . '</p>' . $content . '<div></div>';
 			}
-
 			return $content;
 		}
-
 		/**
 		 * Insert open <p> tag after post content
 		 */
@@ -48,7 +42,6 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			$content = $content . '<p>';
 			return $content;
 		}
-
 		/**
 		 * Insert closing </p> tag tag after post content
 		 */
@@ -56,7 +49,6 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			$content = $content . '</p>';
 			return $content;
 		}
-
 		/**
 		 * Wrap <div> around all <p> tags in post content
 		 * Not hooked

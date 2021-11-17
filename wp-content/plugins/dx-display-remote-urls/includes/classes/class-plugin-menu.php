@@ -7,19 +7,16 @@
  * @author     Martin Nestorov
  */
 class PluginMenu {
-
 	/**
 	 * Create an nonce, and add it as a query var in a link to perform an action
 	 */
 	public $nonce;
-
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'dx_sanitized_links_plugin_menu' ) );
 	}
-
 	/**
 	 * Displays the form through wchih URLs are submitted
 	 */
@@ -28,7 +25,6 @@ class PluginMenu {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
 		}
-
 		if ( ! wp_verify_nonce( $this->nonce, 'nonce' ) ) {
 			die( 'Security check' );
 		} else {
@@ -36,7 +32,6 @@ class PluginMenu {
 			echo wp_remote_retrieve_body( $html_form );
 		}
 	}
-
 	/**
 	 * Adds the plugin menu page to the admin sidebar
 	 */

@@ -1,40 +1,43 @@
 <?php
 
-/**
- * A class for managing plugin dependencies and loading the plugin.
- *
- * @package    MyPluginFilter
- * @author     Martin Nestorov
- */
-class MPF_Bootstrap {
+namespace MyPluginFilter {
 
 	/**
-	 * Registering all classes that power the plugin
+	 * A class for managing plugin dependencies and loading the plugin.
+	 *
+	 * @package    MyPluginFilter
+	 * @author     Martin Nestorov
 	 */
-	protected $loader;
+	class Bootstrap {
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
-		add_action( 'init', array( $this, 'dx_run' ), 0 );
-	}
+		/**
+		 * Registering all classes that power the plugin
+		 */
+		protected $loader;
 
-	/**
-	 * Includes all the plugin classes with priority
-	 */
-	public function dx_include() {
-		// Include the classes.
-		require_once 'class-enqueue-scripts.php';
-		require_once 'class-plugin-filter.php';
-	}
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
+			add_action( 'init', array( $this, 'dx_run' ), 0 );
+		}
 
-	/**
-	 * Instantiate our plugin classes
-	 */
-	public function dx_run() {
-		$this->loader = new EnqueueScripts();
-		$this->loader = new PluginFilter();
+		/**
+		 * Includes all the plugin classes with priority
+		 */
+		public function dx_include() {
+			// Include the classes.
+			require_once 'class-enqueue-scripts.php';
+			require_once 'class-plugin-filter.php';
+		}
+
+		/**
+		 * Instantiate our plugin classes
+		 */
+		public function dx_run() {
+			$this->loader = new \EnqueueScripts();
+			$this->loader = new \PluginFilter();
+		}
 	}
 }

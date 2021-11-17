@@ -1,42 +1,45 @@
 <?php
 
-/**
- * A class for managing plugin dependencies and loading the plugin.
- *
- * @package    StudentCTP
- * @author     Martin Nestorov
- */
-class SCPT_Bootstrap {
+namespace StudentCpt {
 
 	/**
-	 * Registering all classes that power the plugin
+	 * A class for managing plugin dependencies and loading the plugin.
+	 *
+	 * @package    StudentCPT
+	 * @author     Martin Nestorov
 	 */
-	protected $loader;
+	class Bootstrap {
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
-		add_action( 'init', array( $this, 'dx_run' ), 0 );
-	}
+		/**
+		 * Registering all classes that power the plugin
+		 */
+		protected $loader;
 
-	/**
-	 * Includes all the plugin classes with priority
-	 */
-	public function dx_include() {
-		// Include the classes.
-		require_once 'class-student-cpt.php';
-		require_once 'class-student-sidebar.php';
-		require_once 'class-student-widget.php';
-	}
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
+			add_action( 'init', array( $this, 'dx_run' ), 0 );
+		}
 
-	/**
-	 * Instantiate our plugin classes
-	 */
-	public function dx_run() {
-		$this->loader = new StudentCPT();
-		$this->loader = new StudentSidebar();
-		$this->loader = new StudentWidget();
+		/**
+		 * Includes all the plugin classes with priority
+		 */
+		public function dx_include() {
+			// Include the classes.
+			require_once 'class-student-cpt.php';
+			require_once 'class-student-sidebar.php';
+			require_once 'class-student-widget.php';
+		}
+
+		/**
+		 * Instantiate our plugin classes
+		 */
+		public function dx_run() {
+			$this->loader = new \StudentCPT();
+			$this->loader = new \StudentSidebar();
+			$this->loader = new \StudentWidget();
+		}
 	}
 }

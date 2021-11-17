@@ -8,11 +8,9 @@ if ( ! class_exists( 'EnqueueScripts' ) ) {
 	 * @author     Martin Nestorov
 	 */
 	class EnqueueScripts {
-
 		public function __construct() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'dx_enqueue_scripts' ) );
 		}
-
 		/**
 		 * Enqueue scripts for the child theme
 		 *
@@ -20,7 +18,6 @@ if ( ! class_exists( 'EnqueueScripts' ) ) {
 		 */
 		public function dx_enqueue_scripts() {
 			wp_enqueue_script( 'dx_enabled_filters_script', MPF_PATH . './includes/assets/js/main.js', array( 'jquery' ) );
-
 			wp_localize_script(
 				'dx_enabled_filters_script',
 				'dx_enabled_filters_object',

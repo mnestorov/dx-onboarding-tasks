@@ -4,41 +4,34 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 	/**
 	 * Class StudentWidget
 	 *
-	 * @package    StudentCTP
+	 * @package    StudentCPT
 	 * @author     Martin Nestorov
 	 */
-	class StudentWidget extends WP_Widget {
-
+	class StudentWidget extends \WP_Widget {
 		/**
 		 * Constructor
 		 */
 		public function __construct() {
 			parent::__construct(
-				'student_widget',
-				__( 'Students Widget', 'student_widget_domain' ),
-				array( 'description' => __( 'This widget is for the student post type.', 'student_widget_domain' ) )
+				false,
+				__( 'Student Widget', 'studentcpt' ),
+				array( 'description' => __( 'This widget is for the student post type.', 'studentcpt' ) )
 			);
 		}
-
 		/**
 		 * Adding widget elements
 		 * Important: Output cannot be scaped!
 		 */
 		public function widget( $args, $instance ) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
-
 			echo $args['before_widget'];
-
 			if ( ! empty( $title ) ) {
 				echo $args['before_title'] . $title . $args['after_title'];
 			}
-
 			$html_form = wp_remote_get( SCPT_URL_PATH . './includes/templates/widget_form.html', __FILE__ );
 			echo wp_remote_retrieve_body( $html_form );
-
 			echo $args['after_widget'];
 		}
-
 		/**
 		 * Creates widget backend
 		 */
@@ -46,7 +39,7 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 			if ( isset( $instance['title'] ) ) {
 				$title = $instance['title'];
 			} else {
-				$title = __( 'Title', 'student_widget_domain' );
+				$title = __( 'Title', 'studentcpt' );
 			}
 			?>
 			<p>
@@ -55,7 +48,6 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 			</p>
 			<?php
 		}
-
 		/**
 		 * Overrides the wp update function
 		 */
@@ -64,6 +56,5 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
 			return $instance;
 		}
-
 	}
 }

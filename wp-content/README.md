@@ -1,6 +1,14 @@
-# Themes
+# DevriX Onboarding Tasks
 
-## twentytwentyone-child
+Here are described, all Asana tasks performed so far, in terms of the onboarding process in DevriX, where exactly (child themes or plugins) are implemented.
+
+This to-do list changes according to the implementation of future project tasks.
+
+## Themes
+
+### twentytwentyone-child
+
+Path to files: `wp-content/themes/twentytwentyone-child`
 
 **Included tasks**
 
@@ -16,9 +24,11 @@
 - [Handling administration menus](https://app.asana.com/0/1201345304239951/1201345383345775/f)
 - [A bonus task: Implement an Infinite Scroll pagination](https://app.asana.com/0/1201345304239951/1201345383960686/f)
 
-# Plugins
+## Plugins
 
-## dx-my-onboarding-plugin
+### **dx-my-onboarding-plugin**
+
+Path to files: *`wp-content/plugins/dx-my-onboarding-plugin`*
 
 **Included tasks**
 
@@ -32,7 +42,9 @@
 - [Options API](https://app.asana.com/0/1201345304239951/1201345383264299/f)
 - [Learn to work with Options API](https://app.asana.com/0/1201345304239951/1201345383317503/f)
 
-## dx-student-cpt
+### **dx-student-cpt**
+
+Path to files: *`wp-content/plugins/dx-student-cpt`*
 
 **Included tasks**
 
@@ -50,19 +62,25 @@
 - [How to create a custom sidebar](https://app.asana.com/0/1201345304239951/1201345346694047/f)
 - [Ability to work with the homepage from the template hierarchy](https://app.asana.com/0/1201345304239951/1201345346705641/f)
 
-## dx-plugin-settings
+### **dx-plugin-settings**
+
+Path to files: *`wp-content/plugins/dx-plugin-settings`*
 
 **Included tasks**
 
 - [AJAX](https://app.asana.com/0/1201345304239951/1201345383442399/f)
 
-## dx-plugin-filter
+### **dx-plugin-filter**
+
+Path to files: *`wp-content/plugins/dx-plugin-filter`*
 
 **Included tasks**
 
--[Running AJAX in your custom plugin](https://app.asana.com/0/1201345304239951/1201345383459199/f)
+- [Running AJAX in your custom plugin](https://app.asana.com/0/1201345304239951/1201345383459199/f)
 
-## dx-display-remote-urls
+### **dx-display-remote-urls**
+
+Path to files: *`wp-content/plugins/dx-display-remote-urls`*
 
 **Included tasks**
 - [Strengthen your knowledge of AJAX as it's extremely commonly used](https://app.asana.com/0/1201345304239951/1201345383490682/f)

@@ -53,4 +53,4 @@ if ( ! defined( 'MOP_PATH' ) ) {
 require_once 'includes/classes/class-bootstrap.php';
 
 // Initiate the bootstrap (master) class.
-$bootstrap = new MOP_Bootstrap();
+$bootstrap = new \MyOnboardingPlugin\Bootstrap();

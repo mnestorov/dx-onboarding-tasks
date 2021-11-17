@@ -16,7 +16,7 @@
  * Requires PHP:      7.2
  * Author:            Martin Nestorov
  * Author URI:        https://github.com/mnestorov
- * Text Domain:       studentsctp
+ * Text Domain:       studentcpt
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Update URI:        https://github.com/mnestorov/wordpress/wp-content/plugins/student-ctp
@@ -53,4 +53,4 @@ if ( ! defined( 'SCPT_URL_PATH' ) ) {
 require_once 'includes/classes/class-bootstrap.php';
 
 // Initiate the bootstrap (master) class.
-$bootstrap = new SCPT_Bootstrap();
+$bootstrap = new \StudentCpt\Bootstrap();
