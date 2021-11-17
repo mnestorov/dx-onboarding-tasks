@@ -1,0 +1,18 @@
+<div class="wrap">
+	<form>
+		<label for="url">Enter a URL here: </label>
+		<input type="text" name="url" id="remote_url">
+		<hr>
+		<select name="cache_duration" id="cache_duration">
+			<option value=600>10 minutes</option>
+			<option value=1800>30 minutes</option>
+			<option value=3600>1 hour</option>
+		</select>
+		<hr>
+	</form>
+	<input type="submit" onclick="showUrlInput();" value="Submit">
+</div>
+
+<div id="output"> </div>
+
+<iframe id="output-frame" height="750" width="900"></iframe>

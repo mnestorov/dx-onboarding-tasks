@@ -26,20 +26,22 @@ if ( ! function_exists( 'twentytwentyone_child_scripts' ) ) {
 		global $wp_query;
 
 		// Register script but don't enqueue it yet.
-		wp_register_script( 'loadmore', get_stylesheet_directory_uri() . '/assets/js/loadmore.js', array( 'jquery' ), false, true );
+		wp_register_script( 'child-loadmore', get_stylesheet_directory_uri() . '/assets/js/loadmore.js', array( 'jquery' ), false, true );
+		wp_enqueue_script( 'child-loadmore' );
 
 		wp_localize_script(
-			'loadmore',
+			'child-loadmore',
 			'loadmore_params',
 			array(
-				'ajaxurl'       => site_url() . '/wp-admin/admin-ajax.php', // WP AJAX.
-				'posts'         => json_encode( $wp_query->query_vars ), // Loop is here.
-				'current_page'  => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
-				'max_page'      => $wp_query->max_num_pages,
+				'ajaxurl'      => site_url() . '/wp-admin/admin-ajax.php', // WP AJAX.
+				'posts'        => wp_json_encode( $wp_query->query_vars ),    // Loop is here.
+				'current_page' => get_query_var( 'paged' ) ?? 1,
+				'max_page'     => $wp_query->max_num_pages,
 			)
 		);
 
-		wp_enqueue_script( 'loadmore' );
+		wp_register_style( 'child-main', get_stylesheet_directory_uri() . '/assets/css/main.css', array(), false, 'all' );
+		wp_enqueue_style( 'child-main' );
 	}
 }
 

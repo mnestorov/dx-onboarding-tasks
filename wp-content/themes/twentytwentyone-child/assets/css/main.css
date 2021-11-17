@@ -1,0 +1,43 @@
+.page-template-full-width-template .entry-content {
+    width: 100%;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+ 
+.page-template-full-width-template .site-main {
+    margin: 0px;
+}
+
+.page-template-full-width-template .centered-image {
+    text-align: center;
+}
+
+/* Load More */
+
+.loadmore {
+	background-color: #28303D;
+    border: 3px solid #28303D;
+    color: #D1E4EE;
+	border-radius: 2px;
+	display: block;
+    width: 50%;
+    margin: 0 auto;
+	text-align: center;
+	font-size: 14px;
+	font-size: 0.875rem;
+	font-weight: 800;
+	letter-spacing:1px;
+	cursor:pointer;
+	text-transform: uppercase;
+	padding: 10px 0;
+	transition: background-color 0.2s ease-in-out, 
+        border-color 0.2s ease-in-out, 
+        color 0.3s ease-in-out;  
+}
+
+.loadmore:hover {
+	background-color: transparent;
+    border: 3px solid #28303D;
+	color: inherit;
+}
