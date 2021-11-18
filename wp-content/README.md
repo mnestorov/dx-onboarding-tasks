@@ -8,7 +8,7 @@ This to-do list changes according to the implementation of future project tasks.
 
 ### twentytwentyone-child
 
-Path to files: `wp-content/themes/twentytwentyone-child`
+Path to files: *`wp-content/themes/twentytwentyone-child`*
 
 **Included tasks**
 
@@ -34,11 +34,9 @@ Path to files: *`wp-content/plugins/dx-my-onboarding-plugin`*
 
 - [Create your first plugin](https://app.asana.com/0/1201345304239951/1201345230253301/f)
 - [Learn how to create a plugin](https://app.asana.com/0/1201345304239951/1201345230253301/f)
-
 - [Hooks - Actions and Filters](https://app.asana.com/0/1201345304239951/1201345230308696/f)
 - [Learn how to make use of the predefined hooks using filters](https://app.asana.com/0/1201345304239951/1201345230327607/f)
 - [Understand how filter executions is prioritized amongst eachother](https://app.asana.com/0/1201345304239951/1201345230350868/f)
-
 - [Options API](https://app.asana.com/0/1201345304239951/1201345383264299/f)
 - [Learn to work with Options API](https://app.asana.com/0/1201345304239951/1201345383317503/f)
 
@@ -57,6 +55,10 @@ Path to files: *`wp-content/plugins/dx-student-cpt`*
 - [Learn to manipulate the columns in the posts admin screen - creating a new one](https://app.asana.com/0/1201345304239951/1201345347042607/f)
 - [Basic understanding of the Widgets API](https://app.asana.com/0/1201345304239951/1201345229228803/f)
 - [Learn how to create a widget](https://app.asana.com/0/1201345304239951/1201345229251143/f)
+- [Shortcodes](https://app.asana.com/0/1201345304239951/1201345346747582/f)
+- [Basic understanding of the Shortcode API](https://app.asana.com/0/1201345304239951/1201345346779944/f)
+- [Learn what shortcodes are and how to create one](https://app.asana.com/0/1201345304239951/1201345229477769/f)
+- [Learn how to work with shortcode attributes when processing the shortcode user input](https://app.asana.com/0/1201345304239951/1201345229500262/f)
 - [Sidebars](https://app.asana.com/0/1201345304239951/1201345346659389/f)
 - [Study the sidebars - what they are, how they work and where they can be used](https://app.asana.com/0/1201345304239951/1201345346677010/f)
 - [How to create a custom sidebar](https://app.asana.com/0/1201345304239951/1201345346694047/f)
