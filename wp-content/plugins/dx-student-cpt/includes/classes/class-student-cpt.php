@@ -204,6 +204,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		}
 		/**
 		 * Adds the Active checkbox to the student CPT admin panel
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
 		 *
 		 * @param array $defaults an array containing the default admin panel columns
 		 */
@@ -214,6 +215,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * The callback for the Active checkbox
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
 		 */
 		public function dx_student_columns_content( $column_name, $post_ID ) {
 			if ( 'active' == $column_name ) {
@@ -265,6 +267,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * Changes the Students CPT meta from active to inactive
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
 		 */
 		public function dx_toggle_student_activated() {
 			if ( isset( $_POST['student_id'] ) ) {
