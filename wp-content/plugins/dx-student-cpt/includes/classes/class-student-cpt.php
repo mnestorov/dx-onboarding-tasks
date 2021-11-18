@@ -19,6 +19,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			add_action( 'manage_student_posts_custom_column', array( $this, 'dx_student_columns_content' ), 10, 2 );
 			add_filter( 'manage_student_posts_columns', array( $this, 'dx_student_add_default_column' ) );
 			add_shortcode( 'student', array( $this, 'dx_display_student_shortcode' ) );
+			add_shortcode( 'students-list', array( $this, 'dx_students_listing_shortcode' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'dx_student_cpt_load_javascript' ) );
 			add_action( 'wp_ajax_toggle_student_activated', array( $this, 'dx_toggle_student_activated' ) );
 			add_action( 'widgets_init', array( $this, 'dx_student_load_widget' ) );
@@ -243,15 +244,19 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 */
 		public function dx_display_student_shortcode( $atts ) {
 			$student_display = '';
+
 			$student = shortcode_atts(
 				array( 'student_id' => null ),
 				$atts
 			);
+
 			$query_args = array(
 				'post_type' => 'student',
 				'p'         => $student['student_id'],
 			);
+
 			$get_single = new \WP_Query( $query_args );
+
 			if ( $get_single->have_posts() ) {
 				while ( $get_single->have_posts() ) {
 					$get_single->the_post();
@@ -261,9 +266,42 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 					$student_display = $student_display . '<h3> Status: ' . get_post_meta( get_the_ID(), $key = 'student_active', true ) . '</h3>';
 				}
 			} else {
+				/**
+				 * Asana task: https://app.asana.com/0/1201345304239951/1201345229500262/f
+				 */
 				$student_display = $student_display . '<h2>Students with the specified ID were not found.</h2>';
 			}
 			return $student_display . '</div>';
+		}
+
+		/**
+		 * Create Shortcode to display list of students
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229500262/f
+		 */
+		public function dx_students_listing_shortcode() {
+			$listing_display = '';
+
+			$query_args = array(
+				'post_type'      => 'student',
+				'posts_per_page' => '3',
+				'publish_status' => 'published',
+			);
+
+			$get_listing = new \WP_Query( $query_args );
+
+			if ( $get_listing->have_posts() ) {
+				while ( $get_listing->have_posts() ) {
+					$get_listing->the_post();
+					$listing_display .= '<div style="padding: 15px; border: 2px solid black;">';
+					$listing_display .= '<h2>' . get_the_title() . '</h2>';
+					$listing_display .= '<div style="margin-bottom: 15px; border: 5px solid white; text-align: center;">' . get_the_post_thumbnail() . '</div>';
+					$listing_display .= '<h3> Grade: ' . get_post_meta( get_the_ID(), $key = 'student_grade', true ) . '</h3>';
+					$listing_display .= '<h3> Status: ' . get_post_meta( get_the_ID(), $key = 'student_active', true ) . '</h3>';
+					$listing_display .= '</div>';
+				}
+				wp_reset_postdata();
+			}
+			return $listing_display;
 		}
 
 		/**
@@ -282,7 +320,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			}
 			wp_die();
 		}
-		
+
 		/**
 		 * Registers the student widget
 		 */
