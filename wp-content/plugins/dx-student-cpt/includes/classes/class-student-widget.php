@@ -3,6 +3,7 @@
 if ( ! class_exists( 'StudentWidget' ) ) {
 	/**
 	 * Class StudentWidget
+	 * Asana task: https://app.asana.com/0/1201345304239951/1201345229251143/f
 	 *
 	 * @package    StudentCPT
 	 * @author     Martin Nestorov
@@ -50,7 +51,7 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 			</p>
 			<?php
 		}
-		
+
 		/**
 		 * Overrides the wp update function
 		 */

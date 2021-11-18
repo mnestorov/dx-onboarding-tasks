@@ -323,6 +323,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * Registers the student widget
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229251143/f
 		 */
 		public function dx_student_load_widget() {
 			register_widget( 'StudentWidget' );
