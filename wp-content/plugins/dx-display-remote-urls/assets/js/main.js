@@ -28,6 +28,9 @@ function showUrlInput() {
     );
 }
 
+/**
+ * Asana task: https://app.asana.com/0/1201345304239951/1201345383183068/f
+ */
 function loadCachedHtml() {
     let data = {
         'action': 'displayCachedHtml',

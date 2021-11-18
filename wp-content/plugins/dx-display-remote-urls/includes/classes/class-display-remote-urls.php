@@ -42,6 +42,7 @@ class DisplayRemoteUrls {
 
 	/**
 	 * If there is cached HTML is displays it, otherwise displays nothing
+	 * Asana task: https://app.asana.com/0/1201345304239951/1201345383183068/f
 	 */
 	public function dx_display_cached_html() {
 		$cached_html = get_transient( 'cached_html' );
