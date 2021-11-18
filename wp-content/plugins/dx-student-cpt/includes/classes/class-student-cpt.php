@@ -62,6 +62,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * The callback which displays the input box for the city meta
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 * @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
@@ -75,6 +76,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * The callback which displays the input box for the address meta
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 *  @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
@@ -88,6 +90,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * The callback which displays the input box for the city meta
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 *  @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
@@ -101,6 +104,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * The callback which displays the input box for the student grade meta
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 *  @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
@@ -118,10 +122,10 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				</select>
 			<?php
 		}
-		
+
 		/**
-		 * Adds ALL student meta boxes
-		 * The functions that output the HTML fields, can become anonymous functions
+		 * Adds all student meta boxes
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 */
 		public function dx_add_student_meta_boxes() {
 			add_meta_box(
@@ -152,6 +156,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * Describes how the meta data from the meta boxes will be saved
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 * @param number $post_id specifies the ID of the post that is being saved.
 		 */
