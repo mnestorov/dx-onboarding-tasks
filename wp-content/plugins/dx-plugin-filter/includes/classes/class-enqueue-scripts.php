@@ -11,6 +11,7 @@ if ( ! class_exists( 'EnqueueScripts' ) ) {
 		public function __construct() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'dx_enqueue_scripts' ) );
 		}
+		
 		/**
 		 * Enqueue scripts for the child theme
 		 *

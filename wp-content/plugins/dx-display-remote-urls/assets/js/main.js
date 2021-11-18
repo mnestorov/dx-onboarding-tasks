@@ -36,6 +36,6 @@ function loadCachedHtml() {
     });
 }
 
-if (!window.location.href.localeCompare('http://wptest2.local/wp-admin/admin.php?page=display-remote-urls%2Fsanitized-links-admin.php')) {
+/* if (!window.location.href.localeCompare('http://wptest2.local/wp-admin/admin.php?page=display-remote-urls%2Fsanitized-links-admin.php')) {
     loadCachedHtml();
-}
+} */

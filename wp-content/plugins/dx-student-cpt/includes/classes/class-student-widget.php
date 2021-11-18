@@ -18,6 +18,7 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 				array( 'description' => __( 'This widget is for the student post type.', 'studentcpt' ) )
 			);
 		}
+
 		/**
 		 * Adding widget elements
 		 * Important: Output cannot be scaped!
@@ -32,6 +33,7 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 			echo wp_remote_retrieve_body( $html_form );
 			echo $args['after_widget'];
 		}
+
 		/**
 		 * Creates widget backend
 		 */
@@ -48,6 +50,7 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 			</p>
 			<?php
 		}
+		
 		/**
 		 * Overrides the wp update function
 		 */

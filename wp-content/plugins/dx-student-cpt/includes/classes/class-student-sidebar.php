@@ -14,6 +14,7 @@ if ( ! class_exists( 'StudentSidebar' ) ) {
 		public function __construct() {
 			add_action( 'widgets_init', array( $this, 'dx_students_sidebar' ) );
 		}
+		
 		/**
 		 * Registers the students custom sidebar
 		 */

@@ -1,7 +1,7 @@
 $ = jQuery;
 
 jQuery(document).ready(function($) {
-    var data = {
+    let data = {
         'action': 'dx_enable_filters',
         'is_checked': dx_enabled_filters_object.is_checked
     };

@@ -22,6 +22,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			add_action( 'wp_ajax_toggle_student_activated', array( $this, 'dx_toggle_student_activated' ) );
 			add_action( 'widgets_init', array( $this, 'dx_student_load_widget' ) );
 		}
+
 		/**
 		 * Register the Students CPT
 		 */
@@ -47,7 +48,8 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				'labels'            => $labels,
 				'description'       => 'A student from some school.',
 				'public'            => true,
-				'menu_position'     => 3,
+				//'menu_position'     => 3,
+				'menu_icon'           => 'dashicons-businessperson',
 				'supports'          => array( 'title', 'thumbnail', 'excerpt', 'category', 'editor' ),
 				'has_archive'       => true,
 				'show_in_admin_bar' => true,
@@ -56,6 +58,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			);
 			register_post_type( 'student', $args );
 		}
+
 		/**
 		 * The callback which displays the input box for the city meta
 		 *
@@ -68,6 +71,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				<input type="text" name="city" value=" <?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 			<?php
 		}
+
 		/**
 		 * The callback which displays the input box for the address meta
 		 *
@@ -80,6 +84,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				<input type="text" name="address" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 			<?php
 		}
+
 		/**
 		 * The callback which displays the input box for the city meta
 		 *
@@ -92,6 +97,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				<input type="date" name="birthdate" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 			<?php
 		}
+
 		/**
 		 * The callback which displays the input box for the student grade meta
 		 *
@@ -111,6 +117,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				</select>
 			<?php
 		}
+		
 		/**
 		 * Adds ALL student meta boxes
 		 * The functions that output the HTML fields, can become anonymous functions
@@ -141,6 +148,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				'student'
 			);
 		}
+
 		/**
 		 * Describes how the meta data from the meta boxes will be saved
 		 *
@@ -185,6 +193,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			$defaults['active'] = 'Active';
 			return $defaults;
 		}
+
 		/**
 		 * The callback for the Active checkbox
 		 */
@@ -197,6 +206,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				}
 			}
 		}
+
 		/**
 		 * Loads scripts
 		 */
@@ -204,6 +214,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			wp_register_script( 'student_ajax_calls', SCPT_URL_PATH . './includes/assets/js/ajax.js', array( 'jquery' ), false, true );
 			wp_enqueue_script( 'student_ajax_calls' );
 		}
+
 		/**
 		 * Student CPT shortcode
 		 *
@@ -233,6 +244,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			}
 			return $student_display . '</div>';
 		}
+
 		/**
 		 * Changes the Students CPT meta from active to inactive
 		 */
@@ -248,6 +260,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			}
 			wp_die();
 		}
+		
 		/**
 		 * Registers the student widget
 		 */

@@ -12,11 +12,11 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			$this->dx_is_filters_enabled();
 			add_action( 'admin_menu', array( $this, 'dx_add_plugin_page' ) );
 			add_action( 'admin_init', array( $this, 'dx_page_init' ) );
 			add_action( 'wp_ajax_dx_enable_filters', array( $this, 'dx_enable_filters' ) );
 		}
+
 		public function dx_add_plugin_page() {
 			add_menu_page(
 				'My Onboarding Plugin',                  // This is page_title.
@@ -28,6 +28,7 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 				65                                       // This is position.
 			);
 		}
+
 		public function dx_create_admin_page() {
 			$this->dx_options = get_option( 'my_onboarding_plugin_option' ); ?>
 			<div class="wrap">
@@ -43,6 +44,7 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 			</div>
 			<?php
 		}
+
 		public function dx_page_init() {
 			register_setting(
 				'dx_option_group',                   // This is option_group.
@@ -62,19 +64,22 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 				'dx_setting_section'                   // This is section.
 			);
 		}
+
 		public function dx_section_info() {
 			// Add some code in here.
 		}
+
 		public function dx_filter_callback() {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_die( __( 'You don\'t have permissions to access this page.' ) );
 			} ?>
 			<div>
-				<input type="checkbox" id="dx_filters_checkbox" name="checkbox" <?php echo get_option( 'is_checked' ); ?>>
+				<input type="checkbox" id="dx_filters_checkbox" name="checkbox" <?php echo get_option( 'is_checked' ) ?? 'checked'; ?>>
 				<label for="checkbox">Enabled / Disabled</label>
 			</div>
 			<?php
 		}
+
 		/**
 		 * Handles the AJAX response from the main.js
 		 */
@@ -82,13 +87,6 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 			$my_onboarding_plugin_option = $_POST['is_checked'];
 			update_option( 'is_checked', $my_onboarding_plugin_option );
 			wp_die();
-		}
-		/**
-		 * Checks if the filters in the admin menu are enabled
-		 * @return bool
-		 */
-		public function dx_is_filters_enabled() {
-			return get_option( 'is_checked' ) === 'checked';
 		}
 	}
 }

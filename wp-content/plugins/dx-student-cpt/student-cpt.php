@@ -52,5 +52,5 @@ if ( ! defined( 'SCPT_URL_PATH' ) ) {
 // Include the bootstrap (master) class.
 require_once 'includes/classes/class-bootstrap.php';
 
-// Initiate the bootstrap (master) class.
+// Instantiate the bootstrap (master) class.
 $bootstrap = new \StudentCpt\Bootstrap();

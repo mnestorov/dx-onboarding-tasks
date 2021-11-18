@@ -17,6 +17,7 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			add_filter( 'the_content', array( $this, 'dx_closing_p' ), 11 );
 			add_filter( 'the_content', array( $this, 'dx_text_wrapper' ) );
 		}
+
 		/**
 		 * Insert text before post content
 		 */
@@ -35,6 +36,7 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			}
 			return $content;
 		}
+
 		/**
 		 * Insert open <p> tag after post content
 		 */
@@ -42,6 +44,7 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			$content = $content . '<p>';
 			return $content;
 		}
+
 		/**
 		 * Insert closing </p> tag tag after post content
 		 */
@@ -49,6 +52,7 @@ if ( ! class_exists( 'InsertContent' ) ) {
 			$content = $content . '</p>';
 			return $content;
 		}
+
 		/**
 		 * Wrap <div> around all <p> tags in post content
 		 * Not hooked
