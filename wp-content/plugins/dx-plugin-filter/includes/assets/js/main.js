@@ -1,3 +1,7 @@
+/**
+ * Asana task: https://app.asana.com/0/1201345304239951/1201345383459199/f
+ */
+
 $ = jQuery;
 
 jQuery(document).ready(function($) {
