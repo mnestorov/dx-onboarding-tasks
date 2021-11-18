@@ -70,7 +70,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			$value = get_post_meta( $post->ID, 'student_city', true );
 			?>
 				<label for="city"> City: </label>
-				<input type="text" name="city" value=" <?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
+				<input type="text" name="city" value=" <?php echo ( esc_html( isset( $value ) ? $value : '' ) ); // Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f ?>">
 			<?php
 		}
 
@@ -84,7 +84,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			$value = get_post_meta( $post->ID, 'student_address', true );
 			?>
 				<label for="address"> Address: </label>
-				<input type="text" name="address" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
+				<input type="text" name="address" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); // Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f ?>">
 			<?php
 		}
 
@@ -98,7 +98,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			$value = get_post_meta( $post->ID, 'student_birthdate', true );
 			?>
 				<label for="birthdate"> Birth Date: </label>
-				<input type="date" name="birthdate" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
+				<input type="date" name="birthdate" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); // Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f ?>">
 			<?php
 		}
 
@@ -165,6 +165,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				update_post_meta(
 					$post_id,
 					'student_city',
+					/**
+					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
+					 */
 					sanitize_text_field( $_POST['city'] ),
 				);
 			}
@@ -172,6 +175,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				update_post_meta(
 					$post_id,
 					'student_address',
+					/**
+					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
+					 */
 					sanitize_text_field( $_POST['address'] ),
 				);
 			}
@@ -179,6 +185,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				update_post_meta(
 					$post_id,
 					'student_birthdate',
+					/**
+					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
+					 */
 					sanitize_text_field( $_POST['birthdate'] ),
 				);
 			}
@@ -186,6 +195,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				update_post_meta(
 					$post_id,
 					'student_grade',
+					/**
+					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
+					 */
 					sanitize_text_field( $_POST['grade'] ),
 				);
 			}
