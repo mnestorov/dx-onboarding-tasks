@@ -237,13 +237,14 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * Student CPT shortcode
+		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229477769/f
 		 *
 		 * @param array $atts practically accepts only one attribute and it is a Student's ID
 		 */
 		public function dx_display_student_shortcode( $atts ) {
 			$student_display = '';
 			$student = shortcode_atts(
-				array( 'student_id' => 10 ),
+				array( 'student_id' => null ),
 				$atts
 			);
 			$query_args = array(
@@ -254,13 +255,13 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			if ( $get_single->have_posts() ) {
 				while ( $get_single->have_posts() ) {
 					$get_single->the_post();
-					$student_display = '<div style="border: 2px solid black;" class="' . get_post_meta( get_the_ID(), 'student_active', true ) . '">';
+					$student_display = '<div style="padding: 15px; border: 2px solid black;" class="' . get_post_meta( get_the_ID(), 'student_active', true ) . '">';
 					$student_display = $student_display . '<h2>' . get_the_title() . '</h2>';
 					$student_display = $student_display . '<h3> Grade: ' . get_post_meta( get_the_ID(), $key = 'student_grade', true ) . '</h3>';
 					$student_display = $student_display . '<h3> Status: ' . get_post_meta( get_the_ID(), $key = 'student_active', true ) . '</h3>';
 				}
 			} else {
-				$student_display = $student_display . '<h2> Students with the specified ID were not found. </h2>';
+				$student_display = $student_display . '<h2>Students with the specified ID were not found.</h2>';
 			}
 			return $student_display . '</div>';
 		}
