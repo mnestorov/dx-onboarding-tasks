@@ -256,21 +256,32 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			$get_single = new \WP_Query( $query_args );
 
 			if ( get_option( 'is_checked' ) ) {
+
+				ob_start();
+
 				if ( $get_single->have_posts() ) {
 					while ( $get_single->have_posts() ) {
 						$get_single->the_post();
-						$student_display = '<div style="padding: 15px; border: 2px solid black;" class="' . get_post_meta( get_the_ID(), 'student_active', true ) . '">';
-						$student_display = $student_display . '<h2>' . get_the_title() . '</h2>';
-						$student_display = $student_display . '<h3> Grade: ' . get_post_meta( get_the_ID(), $key = 'student_grade', true ) . '</h3>';
-						$student_display = $student_display . '<h3> Status: ' . get_post_meta( get_the_ID(), $key = 'student_active', true ) . '</h3>';
+						?>
+						<div style="padding: 15px; border: 2px solid black;" class="<?php echo get_post_meta( get_the_ID(), 'student_active', true ); ?>">
+						<h2><?php echo get_the_title(); ?> </h2>
+						<h3>Grade: <?php echo get_post_meta( get_the_ID(), $key = 'student_grade', true ); ?></h3>
+						<h3>Status: <?php echo get_post_meta( get_the_ID(), $key = 'student_active', true ); ?></h3>
+						<?php
 					}
 				} else {
 					/**
 					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229500262/f
 					 */
-					$student_display = $student_display . '<h2>Students with the specified ID were not found.</h2>';
+					echo '<h2>Students with the specified ID were not found.</h2>';
 				}
-				return $student_display . '</div>';
+
+				echo '</div>';
+
+				$student_display = ob_get_contents();
+				ob_end_clean();
+				return $student_display;
+
 			} else {
 				echo '<h2>Silence is golden.</h2>';
 			}
