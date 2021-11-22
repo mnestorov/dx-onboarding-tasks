@@ -22,15 +22,15 @@ if ( ! class_exists( 'InsertContent' ) ) {
 		 * Insert text before post content
 		 */
 		public function dx_insert_before_content( $content ) {
-			if ( ! is_single() ) {
-				return $content;
-			}
+			// if ( ! is_single() ) {
+			// 	return $content;
+			// }
 			/**
 			 * Important:
 			 * 1) get_option( 'my-onboarding-plugin-option' ) comes from PluginSettings plugin
 			 * 2) get_option( 'is-checked' ) comes from PluginFilter plugin
 			 */
-			if ( get_option( 'is_checked' ) ) {
+			if ( get_option( 'is_checked' ) && 'student' === get_post_type() ) {
 				$before_content = 'Onboarding Filter by Martin Nestorov: ';
 				$content        = '<p>' . $before_content . '</p>' . $content . '<div></div>';
 			}
