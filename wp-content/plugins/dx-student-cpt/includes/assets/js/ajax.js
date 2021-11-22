@@ -1,7 +1,3 @@
-/**
- * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
- */
-
 let student_activated = document.getElementsByClassName("active_student_checkbox");
 
 for (let i = 0; i < student_activated.length; i++) {

@@ -31,6 +31,8 @@ namespace StudentCpt {
 			require_once 'class-student-cpt.php';
 			require_once 'class-student-sidebar.php';
 			require_once 'class-student-widget.php';
+			require_once 'class-enqueue-scripts.php';
+			require_once 'class-plugin-filter.php';
 		}
 
 		/**
@@ -40,6 +42,8 @@ namespace StudentCpt {
 			$this->loader = new \StudentCPT();
 			$this->loader = new \StudentSidebar();
 			$this->loader = new \StudentWidget();
+			$this->loader = new \EnqueueScripts();
+			$this->loader = new \PluginFilter();
 		}
 	}
 }
