@@ -276,12 +276,19 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 * Create Shortcode to display list of students
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229500262/f
 		 */
-		public function dx_students_listing_shortcode() {
+		public function dx_students_listing_shortcode( $atts ) {
 			$listing_display = '';
+
+			extract( shortcode_atts(
+				array(
+					'posts_per_page' => null,
+				),
+				$atts
+			) );
 
 			$query_args = array(
 				'post_type'      => 'student',
-				'posts_per_page' => '3',
+				'posts_per_page' => $posts_per_page,
 				'publish_status' => 'published',
 			);
 
@@ -297,8 +304,10 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 					$listing_display .= '<h3> Status: ' . get_post_meta( get_the_ID(), $key = 'student_active', true ) . '</h3>';
 					$listing_display .= '</div>';
 				}
+
 				wp_reset_postdata();
 			}
+
 			return $listing_display;
 		}
 
@@ -310,12 +319,15 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			if ( isset( $_POST['student_id'] ) ) {
 				$student_id = $_POST['student_id'];
 			}
+
 			$is_active = get_post_meta( $student_id, 'student_active', true );
-			if ( 'active' == $is_active ) {
+
+			if ( 'active' === $is_active ) {
 				update_post_meta( $student_id, 'student_active', 'no' );
 			} else {
 				update_post_meta( $student_id, 'student_active', 'active' );
 			}
+
 			wp_die();
 		}
 
