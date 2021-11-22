@@ -294,16 +294,16 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		public function dx_students_listing_shortcode( $atts ) {
 			$listing_display = '';
 
-			extract( shortcode_atts(
+			$student = shortcode_atts(
 				array(
-					'posts_per_page' => null,
+					'posts_per_page' => 5,
 				),
 				$atts
-			) );
+			);
 
 			$query_args = array(
 				'post_type'      => 'student',
-				'posts_per_page' => $posts_per_page,
+				'posts_per_page' => $student['posts_per_page'],
 				'publish_status' => 'published',
 			);
 
