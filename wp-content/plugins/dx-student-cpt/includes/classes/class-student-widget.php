@@ -26,12 +26,30 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
+
 			echo $args['before_widget'];
+
 			if ( ! empty( $title ) ) {
 				echo $args['before_title'] . $title . $args['after_title'];
 			}
-			$html_form = wp_remote_get( SCPT_URL_PATH . './includes/templates/widget_form.html', __FILE__ );
-			echo wp_remote_retrieve_body( $html_form );
+
+			$html_form  = '<div class="wrap">';
+			$html_form .= '<form method="post" style="border: solid;"';
+			$html_form .= '<label for="students-per-page">Students Per Page:</label>';
+			$html_form .= '<input type="number" name="students-per-page">';
+			$html_form .= '<hr>';
+			$html_form .= '<label for="display_students">Chose which students to be displayed:</label>';
+			$html_form .= '<select name="display_students" id="display_students">';
+			$html_form .= '<option value="active">Active</option>';
+			$html_form .= '<option value="inactive">Inactive</option>';
+			$html_form .= '</select>';
+			$html_form .= '<hr>';
+			$html_form .= '<input type="submit" name="submit-form" value="Submit">';
+			$html_form .= '</form>';
+			$html_form .= '</div>';
+
+			echo $html_form;
+
 			echo $args['after_widget'];
 		}
 
