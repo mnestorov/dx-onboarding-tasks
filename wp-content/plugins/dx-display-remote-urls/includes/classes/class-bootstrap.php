@@ -29,14 +29,12 @@ namespace DisplayRemoteUrls {
 		public function dx_include() {
 			// Include the classes.
 			require_once 'class-display-remote-urls.php';
-			require_once 'class-plugin-menu.php';
 		}
 
 		/**
 		 * Instantiate our plugin classes.
 		 */
 		public function dx_run() {
-			$this->loader = new \PluginMenu();
 			$this->loader = new \DisplayRemoteUrls();
 		}
 	}
