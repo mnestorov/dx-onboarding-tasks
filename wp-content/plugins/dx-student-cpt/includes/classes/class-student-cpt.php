@@ -220,11 +220,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 */
 		public function dx_student_columns_content( $column_name, $post_ID ) {
 			if ( 'active' == $column_name ) {
-				if ( get_post_meta( $post_ID, 'student_active', true ) == 'active' ) {
-					echo '<input type="checkbox" name="active_student_checkbox" class="active_student_checkbox" id=" ' . $post_ID . '" checked>';
-				} else {
-					echo '<input type="checkbox" name="active_student_checkbox" class="active_student_checkbox" id=" ' . $post_ID . '"  >';
-				}
+				?>
+				<input type="checkbox" name="active_student_checkbox" class="active_student_checkbox" id="<?php echo $post_ID; ?>" <?php checked( get_post_meta( $post_ID, 'student_active', true ), 'active' ); ?>>
+				<?php
 			}
 		}
 
