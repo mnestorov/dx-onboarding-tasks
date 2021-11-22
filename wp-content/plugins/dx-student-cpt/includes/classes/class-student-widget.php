@@ -25,6 +25,7 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 		 * Important: Output cannot be scaped!
 		 */
 		public function widget( $args, $instance ) {
+			$template_path = __DIR__ . '../../templates/form.php';
 			$title = apply_filters( 'widget_title', $instance['title'] );
 
 			echo $args['before_widget'];
@@ -33,22 +34,16 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 				echo $args['before_title'] . $title . $args['after_title'];
 			}
 
-			$html_form  = '<div class="wrap">';
-			$html_form .= '<form method="post" style="border: solid;"';
-			$html_form .= '<label for="students-per-page">Students Per Page:</label>';
-			$html_form .= '<input type="number" name="students-per-page">';
-			$html_form .= '<hr>';
-			$html_form .= '<label for="display_students">Chose which students to be displayed:</label>';
-			$html_form .= '<select name="display_students" id="display_students">';
-			$html_form .= '<option value="active">Active</option>';
-			$html_form .= '<option value="inactive">Inactive</option>';
-			$html_form .= '</select>';
-			$html_form .= '<hr>';
-			$html_form .= '<input type="submit" name="submit-form" value="Submit">';
-			$html_form .= '</form>';
-			$html_form .= '</div>';
+			if ( ! is_readable( $template_path ) ) {
+				return sprintf( '<!-- Could not read "%s" file -->', $template_path );
+			}
 
-			echo $html_form;
+			ob_start();
+
+			include $template_path;
+			$content = ob_get_clean();
+
+			echo $content;
 
 			echo $args['after_widget'];
 		}
