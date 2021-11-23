@@ -14,7 +14,7 @@ class DisplayRemoteUrls {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'dx_sanitized_links_plugin_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'dx_load_scripts' ) );
-		add_action( 'wp_ajax_dx_display_input_url', array( $this, 'dx_display_input_url' ) );
+		add_action( 'wp_ajax_dx_get_remote_url', array( $this, 'dx_get_remote_url' ) );
 	}
 
 	/**
@@ -24,6 +24,9 @@ class DisplayRemoteUrls {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( 'You do not have permission to access this page' );
 		}
+
+		$transient = get_transient( 'search_results' );
+
 		?>
 		<div class="wrap">
 			<label for="url">Enter a URL here: </label>
@@ -39,7 +42,7 @@ class DisplayRemoteUrls {
 			<button id="search">Search</button>
 		</div>
 
-		<div id="output" style="margin-top: 30px;"><?php $this->dx_transient_check_and_display(); ?></div>
+		<div id="output" style="margin-top: 30px; contain:content;"><?php echo $transient ?? ''; ?></div>
 		<?php
 	}
 
@@ -64,48 +67,22 @@ class DisplayRemoteUrls {
 	 *
 	 * @var array $_POST
 	 */
-	public function dx_display_input_url() {
-		$remote_url          = sanitize_text_field( $_POST['data']['remote_url'] );
-		$duration_in_seconds = sanitize_text_field( $_POST['data']['transient_duration'] );
+	public function dx_get_remote_url() {
+		if ( ! empty( $_POST['remote_url'] ) ) {
+			$remote_url = sanitize_text_field( $_POST['remote_url'] );
+			$contents   = wp_remote_get( $remote_url );
+			$result     = wp_remote_retrieve_body( $contents );
 
-		$this->dx_transient_duration( $remote_url, $duration_in_seconds );
-		$this->dx_results_display();
-
-		wp_die();
-	}
-
-	/**
-	 * Checks if we have transient and calls the display function if we do
-	 */
-	public function dx_transient_check_and_display() {
-		$result = get_transient( 'search_results' );
-
-		if ( false !== $result ) {
-			$this->dx_results_display();
-		}
-	}
-
-	/**
-	 * Sets the url and the duration in transient
-	 */
-	public function dx_transient_duration( $remote_url, $duration_in_seconds ) {
-		if ( $remote_url !== '' ) {
-
-			if ( ! $duration_in_seconds ) {
-				$duration_in_seconds = 10;
+			if ( ! empty( $_POST['transient_duration'] ) ) {
+				$duration_in_seconds = intval( $_POST['transient_duration'] );
+				set_transient( 'search_results', $result, $duration_in_seconds );
+			} else {
+				set_transient( 'search_results', $result );
 			}
 
-			set_transient( 'search_results', $remote_url, $duration_in_seconds );
+			wp_send_json_success( $result );
 		}
-	}
 
-	/**
-	 * If there is cached HTML is displays it, otherwise displays nothing
-	 * Asana task: https://app.asana.com/0/1201345304239951/1201345383183068/f
-	 */
-	public function dx_results_display() {
-		$url      = get_transient( 'search_results' );
-		$contents = wp_remote_get( $url );
-		echo wp_remote_retrieve_body( $contents );
+		wp_send_json_error();
 	}
 }
