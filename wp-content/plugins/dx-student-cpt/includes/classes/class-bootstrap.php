@@ -33,6 +33,7 @@ namespace StudentCpt {
 			require_once 'class-student-widget.php';
 			require_once 'class-enqueue-scripts.php';
 			require_once 'class-plugin-filter.php';
+			require_once 'class-loadmore.php';
 		}
 
 		/**
@@ -44,6 +45,7 @@ namespace StudentCpt {
 			$this->loader = new \StudentWidget();
 			$this->loader = new \EnqueueScripts();
 			$this->loader = new \PluginFilter();
+			$this->loader = new \Loadmore();
 		}
 	}
 }
