@@ -249,8 +249,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 			);
 
 			$query_args = array(
-				'post_type' => 'student',
-				'p'         => $student['student_id'],
+				'post_type'      => 'student',
+				'p'              => $student['student_id'],
+				'publish_status' => 'published',
 			);
 
 			$get_single = new \WP_Query( $query_args );
@@ -265,8 +266,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 						?>
 						<div style="padding: 15px; border: 2px solid black;" class="<?php echo get_post_meta( get_the_ID(), 'student_active', true ); ?>">
 						<h2><?php echo get_the_title(); ?> </h2>
-						<h3>Grade: <?php echo get_post_meta( get_the_ID(), $key = 'student_grade', true ); ?></h3>
-						<h3>Status: <?php echo get_post_meta( get_the_ID(), $key = 'student_active', true ); ?></h3>
+						<h3>Grade: <?php echo get_post_meta( get_the_ID(), 'student_grade', true ); ?></h3>
+						<h3>Status: <?php echo get_post_meta( get_the_ID(), 'student_active', true ); ?></h3>
+						</div>
 						<?php
 					}
 				} else {
@@ -275,8 +277,6 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 					 */
 					echo '<h2>Students with the specified ID were not found.</h2>';
 				}
-
-				echo '</div>';
 
 				$student_display = ob_get_contents();
 				ob_end_clean();
@@ -315,8 +315,8 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 					$listing_display .= '<div style="padding: 15px; border: 2px solid black;">';
 					$listing_display .= '<h2>' . get_the_title() . '</h2>';
 					$listing_display .= '<div style="margin-bottom: 15px; border: 5px solid white; text-align: center;">' . get_the_post_thumbnail() . '</div>';
-					$listing_display .= '<h3> Grade: ' . get_post_meta( get_the_ID(), $key = 'student_grade', true ) . '</h3>';
-					$listing_display .= '<h3> Status: ' . get_post_meta( get_the_ID(), $key = 'student_active', true ) . '</h3>';
+					$listing_display .= '<h3> Grade: ' . get_post_meta( get_the_ID(), 'student_grade', true ) . '</h3>';
+					$listing_display .= '<h3> Status: ' . get_post_meta( get_the_ID(), 'student_active', true ) . '</h3>';
 					$listing_display .= '</div>';
 				}
 
