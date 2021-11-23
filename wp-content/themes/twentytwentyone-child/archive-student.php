@@ -31,7 +31,11 @@ $description = get_the_archive_description();
 		<?php endwhile; ?>
 	</div>
 
-	<?php twenty_twenty_one_the_posts_navigation(); ?>
+	<?php
+	if ( $wp_query->max_num_pages > 1 ) {
+		echo '<div class="loadmore">Load More Posts</div>';
+	}
+	?>
 
 <?php else : ?>
 	<?php get_template_part( 'template-parts/content/content-none' ); ?>

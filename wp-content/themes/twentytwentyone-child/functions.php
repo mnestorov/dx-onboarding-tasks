@@ -53,9 +53,12 @@ if ( ! function_exists( 'twentytwentyone_child_loadmore_ajax_handler' ) ) {
 	 */
 	function twentytwentyone_child_loadmore_ajax_handler() {
 
-		$args                = json_decode( stripslashes( $_POST['query'] ), true );
-		$args['paged']       = $_POST['page'] + 1; // Loading next page.
-		$args['post_status'] = 'publish';
+		$args                     = json_decode( stripslashes( ! isset( $_POST['query'] ) ?? '' ), true );
+		$args['post_type']        = 'student';
+		$args['posts_per_page']   = 3;
+		$args['paged']            = $_POST['page'] + 1; // Loading next page.
+		$args['post_status']      = 'publish';
+		$args['suppress_filters'] = true;
 
 		$query = new WP_Query( $args );
 

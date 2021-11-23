@@ -32,12 +32,7 @@ if ( have_posts() ) {
 		get_template_part( 'template-parts/content/content', get_theme_mod( 'display_excerpt_or_full_post', 'excerpt' ) );
 	}
 
-	// Load More posts button.
-	global $wp_query;
-
-	if ( $wp_query->max_num_pages > 1 ) {
-		echo '<div class="loadmore">Load More Posts</div>';
-	}
+	twenty_twenty_one_the_posts_navigation();
 
 } else {
 

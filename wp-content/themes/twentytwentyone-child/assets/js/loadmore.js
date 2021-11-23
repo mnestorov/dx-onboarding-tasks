@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
 				},
 				success : function( data ){
 					if( data ) { 
-						button.text( 'Load More Posts' ).prev().before(data); // insert new posts
+						button.text( 'Load More Posts' ).prev().after(data); // insert new posts
 						loadmore_params.current_page++;
 	
 						if ( loadmore_params.current_page == loadmore_params.max_page ) {
