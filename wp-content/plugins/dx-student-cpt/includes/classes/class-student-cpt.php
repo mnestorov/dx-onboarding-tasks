@@ -30,34 +30,37 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 */
 		public function dx_register_student_type() {
 			$labels = array(
-				'name'               => _x( 'Students', 'Post type general name', 'studentsctp' ),
-				'singular_name'      => _x( 'Student', 'Post type singular name', 'studentsctp' ),
-				'menu_name'          => _x( 'Students', 'Admin Menu text', 'studentsctp' ),
-				'name_admin_bar'     => _x( 'Student', 'Add New on Toolbar', 'studentsctp' ),
-				'add_new'            => __( 'Add New', 'studentsctp' ),
-				'add_new_item'       => __( 'Add New Student', 'studentsctp' ),
-				'new_item'           => __( 'New Student', 'studentsctp' ),
-				'edit_item'          => __( 'Edit Student', 'studentsctp' ),
-				'view_item'          => __( 'View Student', 'studentsctp' ),
-				'all_items'          => __( 'All Students', 'studentsctp' ),
-				'search_items'       => __( 'Search Students', 'studentsctp' ),
-				'parent_item_colon'  => __( 'Parent Students:', 'studentsctp' ),
-				'not_found'          => __( 'No stundets found.', 'studentsctp' ),
-				'not_found_in_trash' => __( 'No students found in Trash.', 'studentsctp' ),
+				'name'                  => _x( 'Students', 'Post type general name', 'studentsctp' ),
+				'singular_name'         => _x( 'Student', 'Post type singular name', 'studentsctp' ),
+				'menu_name'             => _x( 'Students', 'Admin Menu text', 'studentsctp' ),
+				'name_admin_bar'        => _x( 'Student', 'Add New on Toolbar', 'studentsctp' ),
+				'add_new'               => __( 'Add New', 'studentsctp' ),
+				'add_new_item'          => __( 'Add New Student', 'studentsctp' ),
+				'new_item'              => __( 'New Student', 'studentsctp' ),
+				'edit_item'             => __( 'Edit Student', 'studentsctp' ),
+				'view_item'             => __( 'View Student', 'studentsctp' ),
+				'all_items'             => __( 'All Students', 'studentsctp' ),
+				'search_items'          => __( 'Search Students', 'studentsctp' ),
+				'parent_item_colon'     => __( 'Parent Students:', 'studentsctp' ),
+				'not_found'             => __( 'No stundets found.', 'studentsctp' ),
+				'not_found_in_trash'    => __( 'No students found in Trash.', 'studentsctp' ),
+				'show_in_rest'          => true,
+				'rest_base'             => 'students',
+    			'rest_controller_class' => 'WP_REST_Terms_Controller',
 			);
+
 			$args = array(
 				'label'             => 'student',
 				'labels'            => $labels,
 				'description'       => 'A student from some school.',
 				'public'            => true,
-				//'menu_position'     => 3,
-				'menu_icon'           => 'dashicons-businessperson',
+				'menu_icon'         => 'dashicons-businessperson',
 				'supports'          => array( 'title', 'thumbnail', 'excerpt', 'category', 'editor' ),
 				'has_archive'       => true,
 				'show_in_admin_bar' => true,
-				'show_in_rest'      => true,
 				'taxonomies'        => array( 'category' ),
 			);
+
 			register_post_type( 'student', $args );
 		}
 

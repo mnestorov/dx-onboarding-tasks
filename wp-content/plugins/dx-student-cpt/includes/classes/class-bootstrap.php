@@ -21,6 +21,13 @@ namespace StudentCpt {
 		public function __construct() {
 			add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
 			add_action( 'init', array( $this, 'dx_run' ), 0 );
+			add_action('rest_api_init', array( $this, 'init_wp_rest_multiple_post_type_endpoint' ) );
+		}
+
+		public function init_wp_rest_multiple_post_type_endpoint()
+		{
+			$controller = new \WpRestMultiplePostTypeController();
+			$controller->register_routes();
 		}
 
 		/**
@@ -35,6 +42,7 @@ namespace StudentCpt {
 			require_once 'class-enqueue-scripts.php';
 			require_once 'class-plugin-filter.php';
 			require_once 'class-loadmore.php';
+			require_once 'class-wp-rest-multipleposttype-controller.php';
 		}
 
 		/**
