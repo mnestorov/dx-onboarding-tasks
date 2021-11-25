@@ -9,8 +9,6 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 	 */
 	class StudentRestApi {
 
-		protected $params;
-
 		/**
 		 * Constructor
 		 */
@@ -50,7 +48,6 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		public function dx_get_all_student_data() {
 			$args = array(
 				'post_type'     => 'student',
-				'p'             => $this->params['id'],
 				'post_per_page' => 3,
 			);
 
@@ -85,38 +82,37 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		/**
 		 * Callback for adding a new student
 		 */
-		public function dx_add_new_student_data() {
-			if ( isset( $_POST['post_title'] ) && isset( $_POST['post_content'] ) && isset( $_POST['post_excerpt'] ) ) {
-				$post = array(
-					'post_type'    => 'student',
-					'post_title'   => sanitize_title( $_POST['post_title'] ),
-					'post_content' => sanitize_text_field( $_POST['post_content'] ),
-					'post_excerpt' => sanitize_text_field( $_POST['post_excerpt'] ),
-					'post_status'  => 'publish',
-				);
+		public function dx_add_new_student_data( $request ) {
+			$body = $request->get_body();
 
-				$post_id = wp_insert_post( $post );
+			if ( ! empty( $body ) ) {
+				$body               = json_decode( $body, true );
+				$raw_title          = sanitize_text_field( $body['post_title'] );
+				$body['post_title'] = $raw_title;
+				$post_id            = wp_insert_post( $body );
 
 				return rest_ensure_response( $post_id );
 			}
+
+			return false;
 		}
 
 		/**
 		 * Callback for registering the update route
 		 */
-		public function dx_edit_student() {
-			if ( isset( $_POST['post_title'] ) && isset( $_POST['post_content'] ) && isset( $_POST['post_excerpt'] ) ) {
-				$post = array(
-					'ID'           => $this->params['id'],
-					'post_title'   => sanitize_title( $_POST['post_title'] ),
-					'post_content' => sanitize_text_field( $_POST['post_content'] ),
-					'post_excerpt' => sanitize_text_field( $_POST['post_excerpt'] ),
-				);
-		
-				$post_id = wp_insert_post( $post );
+		public function dx_edit_student( $request ) {
+			$body = $request->get_body();
+
+			if ( ! empty( $body ) ) {
+				$body               = json_decode( $body, true );
+				$raw_title          = sanitize_text_field( $body['post_title'] );
+				$body['post_title'] = $raw_title;
+				$post_id            = wp_update_post( $body );
 
 				return rest_ensure_response( $post_id );
 			}
+
+			return false;
 		}
 
 		/**
