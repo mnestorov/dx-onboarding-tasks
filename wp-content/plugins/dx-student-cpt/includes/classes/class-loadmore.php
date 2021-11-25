@@ -27,9 +27,6 @@ if ( ! class_exists( 'Loadmore' ) ) {
 				'loadmore_params',
 				array(
 					'ajaxurl'      => site_url() . '/wp-admin/admin-ajax.php', // WP AJAX.
-					'posts'        => wp_json_encode( $wp_query->query_vars ),    // Loop is here.
-					'current_page' => get_query_var( 'paged' ) ?? 1,
-					'max_page'     => $wp_query->max_num_pages,
 				)
 			);
 
@@ -38,7 +35,7 @@ if ( ! class_exists( 'Loadmore' ) ) {
 		}
 
 		public function dx_loadmore_ajax_handler() {
-
+			
 			$args                     = json_decode( stripslashes( ! isset( $_POST['query'] ) ?? '' ), true );
 			$args['post_type']        = 'student';
 			$args['posts_per_page']   = 3;
@@ -46,7 +43,7 @@ if ( ! class_exists( 'Loadmore' ) ) {
 			$args['post_status']      = 'publish';
 			$args['suppress_filters'] = true;
 
-			$query = new WP_Query( $args );
+			$query = new \WP_Query( $args );
 
 			if ( $query->have_posts() ) {
 				while ( $query->have_posts() ) {

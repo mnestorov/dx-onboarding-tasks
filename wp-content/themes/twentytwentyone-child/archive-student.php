@@ -31,11 +31,7 @@ $description = get_the_archive_description();
 		<?php endwhile; ?>
 	</div>
 
-	<?php
-	if ( $wp_query->max_num_pages > 1 ) {
-		echo '<div class="loadmore">Load More Posts</div>';
-	}
-	?>
+	<?php echo '<div class="loadmore" data-args="' . esc_attr( wp_json_encode( $wp_query ) ) . '" data-max-page="' . esc_attr( $wp_query->max_num_pages > 1 ? $wp_query->max_num_pages : '' ) . '" data-current-page="1">Load More Posts</div>'; ?>
 
 <?php else : ?>
 	<?php get_template_part( 'template-parts/content/content-none' ); ?>

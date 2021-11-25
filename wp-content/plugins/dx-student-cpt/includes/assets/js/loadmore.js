@@ -1,40 +1,36 @@
 jQuery(document).ready(function ($) {
 	// Load More button
-	$(function($){
-		$('.loadmore').click(function(){
-	
+		$('body').on('click', '.loadmore', function(){
 			let button = $(this),
-				data = {
-				'action': 'loadmore',
-				'query': loadmore_params.posts, // get params from wp_localize_script() function
-				'page' : loadmore_params.current_page
-			};
-	
+			currentPage = button.data( 'current-page' ),
+			maxPage = button.data( 'max-page' ),
+			queryArgs = button.data( 'args' );
+
 			$.ajax({
 				url : loadmore_params.ajaxurl, // AJAX handler
-				data : data,
+				data : {
+					'action': 'loadmore',
+					'query': queryArgs,
+					'page' : currentPage,
+				},
 				type : 'POST',
 				beforeSend : function ( xhr ) {
-					button.text('Loading...'); 
+					button.text('Loading...'); // some type of preloader
 				},
 				success : function( data ){
-					if( data ) { 
-						button.text( 'Load More Posts' ).prev().after(data); // insert new posts
-						loadmore_params.current_page++;
+					currentPage++;
+					button.text('More Posts').data( 'current-page', currentPage ).before(data);
 	
-						if ( loadmore_params.current_page == loadmore_params.max_page ) {
-							button.remove(); // if last page, remove the button
-						}
-							
-					} else {
-						button.remove(); // if no data, remove the button
+					if( currentPage == maxPage ) {
+						button.remove();
 					}
+	
 				}
 			});
 		});
-	});
 
-	// Infinite scroll
+
+	/* // Infinite scroll
 	$(function($){
 		let canBeLoaded = true,
 			bottomOffset = 9000;
@@ -64,5 +60,5 @@ jQuery(document).ready(function ($) {
 				});
 			}
 		});
-	});
-});
+	});*/
+}); 
