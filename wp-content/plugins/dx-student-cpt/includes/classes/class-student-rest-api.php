@@ -61,8 +61,27 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 				return rest_ensure_response( array() );
 			}
 
+			foreach ( $posts as $post ) {
+
+				$post_meta = get_post_meta( $post->ID );
+
+				//error_log( print_r( $post_meta, true ) );
+
+				$post_data['title']             = $post->post_title;
+				$post_data['post_date']         = $post->post_date;
+				$post_data['post_content']      = $post->post_content;
+				$post_data['post_excerpt']      = $post->post_excerpt;
+				$post_data['student_city']      = $post_meta['student_city'][0] ?? '';
+				$post_data['student_address']   = $post_meta['student_address'][0] ?? '';
+				$post_data['student_birthdate'] = $post_meta['student_birthdate'][0] ?? '';
+				$post_data['student_grade']     = $post_meta['student_grade'][0] ?? '';
+				$post_data['student_active']    = $post_meta['student_active'][0] ?? '';
+
+				$data[] = $post_data;
+			}
+
 			// Return all of our response data.
-			return rest_ensure_response( $posts );
+			return rest_ensure_response( $data );
 		}
 
 		/**
