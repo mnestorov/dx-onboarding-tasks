@@ -8,11 +8,16 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 	 * @author     Martin Nestorov
 	 */
 	class StudentRestApi {
+		/**
+		 * @var string $namespace
+		 */
+		private $namespace;
 
 		/**
 		 * Constructor
 		 */
 		public function __construct() {
+			$this->namespace = '/api/v1';
 			add_action( 'rest_api_init', array( $this, 'dx_register_api_endpoints' ) );
 			add_action( 'rest_insert_page', array( $this, 'dx_add_content_to_post_meta' ), 10, 3 );
 		}
@@ -43,26 +48,36 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		}
 
 		/**
-		 * Callback for getting data for all students
+		 * Callback for getting data for all the students
 		 */
-		public function dx_get_all_student_data() {
+		public function dx_get_all_student_data( \WP_REST_Request $request ) {
+			$page = intval( $request['page'] );
+
 			$args = array(
 				'post_type'     => 'student',
 				'post_per_page' => 3,
+				'paged'         => $page,
+				'orderby'       => 'date',
+				'order'         => 'desc',
 			);
 
 			/**
-			 * Here we are usig `get_post` according to WP docs
-			 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/
+			 * For paginating query result it is not recommended to use get_posts() method
+			 * but use WP_Query to get the results with pagination.
+			 * @see https://developer.wordpress.org/rest-api/using-the-rest-api/pagination/
+			 * @see https://developer.wordpress.org/reference/classes/wp_query/#pagination-parameters
 			 */
-			$posts = get_posts( $args );
+			$query = new \WP_Query( $args );
 
-			if ( empty( $posts ) ) {
-				return rest_ensure_response( array() );
+			if ( empty( $query->posts ) ) {
+				return new \WP_Error( 'no_posts', __( 'No students found.' ), array( 'status' => 404 ) );
 			}
 
-			foreach ( $posts as $post ) {
+			// Set the maximum number of pages and total number of posts.
+			$max_pages = $query->max_num_pages;
+			$total     = $query->found_posts;
 
+			foreach ( $query->posts as $post ) {
 				$post_meta = get_post_meta( $post->ID );
 
 				//error_log( print_r( $post_meta, true ) );
@@ -75,27 +90,53 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 				$post_data['student_address']   = $post_meta['student_address'][0] ?? '';
 				$post_data['student_birthdate'] = $post_meta['student_birthdate'][0] ?? '';
 				$post_data['student_grade']     = $post_meta['student_grade'][0] ?? '';
-				$post_data['student_active']    = $post_meta['student_active'][0] ?? '';
+				$post_data['student_active']    = $post_meta['student_active'][0] ?? 'no';
 
 				$data[] = $post_data;
 			}
 
-			// Return all of our response data.
-			return rest_ensure_response( $data );
+			// Prepare data for output.
+			$response = new \WP_REST_Response( $data, 200 );
+
+			// Set headers and return response.
+			$response->header( 'X-WP-Total', $total );
+			$response->header( 'X-WP-TotalPages', $max_pages );
+
+			return rest_ensure_response( $response );
 		}
 
 		/**
-		 * Callback for getting data for one student
+		 * Callback for getting data for single student
 		 */
-		public function dx_get_one_student_data( $request ) {
-			$post_id = intval( $request['id'] );
-			$post    = get_posts( $post_id );
+		public function dx_get_single_student_data( \WP_REST_Request $request ) {
+			$post_id = $request->get_params();
+
+			$args = array(
+				'post_type'   => 'student',
+				'numberposts' => 1,
+				'include'     => array( $post_id['id'] ),
+			);
+
+			$post = get_posts( $args );
 
 			if ( empty( $post ) ) {
-				return rest_ensure_response( array() );
+				return new \WP_Error( 'no_posts', __( 'Please define a valid student ID.' ), array( 'status' => 404 ) );
 			}
 
-			return rest_ensure_response( $post );
+			$data['id']                = $post[0]->ID;
+			$data['title']             = $post[0]->post_title;
+			$data['post_content']      = $post[0]->post_content;
+			$data['post_excerpt']      = $post[0]->post_excerpt;
+			$data['student_city']      = $post[0]->student_city ?? '';
+			$data['student_address']   = $post[0]->student_address ?? '';
+			$data['student_birthdate'] = $post[0]->student_birthdate ?? '';
+			$data['student_grade']     = $post[0]->student_grade ?? '';
+			$data['student_active']    = $post[0]->student_active ?? 'no';
+
+			// Prepare data for output.
+			$response = new \WP_REST_Response( $data, 200 );
+
+			return rest_ensure_response( $response );
 		}
 
 		/**
@@ -104,11 +145,23 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		public function dx_add_new_student_data( $request ) {
 			$body = $request->get_body();
 
+			//error_log( print_r( $body, true ) );
+
 			if ( ! empty( $body ) ) {
-				$body               = json_decode( $body, true );
-				$raw_title          = sanitize_text_field( $body['post_title'] );
-				$body['post_title'] = $raw_title;
-				$post_id            = wp_insert_post( $body );
+				$body                    = json_decode( $body, true );
+				$raw_title               = sanitize_text_field( $body['post_title'] );
+				$raw_content             = sanitize_text_field( $body['post_content'] );
+				$raw_excerpt             = sanitize_text_field( $body['post_excerpt'] );
+				$raw_student_city        = sanitize_text_field( $body['student_city'] );
+				$raw_student_address     = sanitize_text_field( $body['student_address'] );
+				$raw_student_grade       = intval( $body['student_grade'] );
+				$body['post_title']      = $raw_title;
+				$body['post_content']    = $raw_content;
+				$body['post_excerpt']    = $raw_excerpt;
+				$body['student_city']    = $raw_student_city;
+				$body['student_address'] = $raw_student_address;
+				$body['student_grade']   = $raw_student_grade;
+				$post_id                 = wp_insert_post( $body );
 
 				return rest_ensure_response( $post_id );
 			}
@@ -122,11 +175,23 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		public function dx_edit_student( $request ) {
 			$body = $request->get_body();
 
+			//error_log( print_r( $body, true ) );
+
 			if ( ! empty( $body ) ) {
-				$body               = json_decode( $body, true );
-				$raw_title          = sanitize_text_field( $body['post_title'] );
-				$body['post_title'] = $raw_title;
-				$post_id            = wp_update_post( $body );
+				$body                    = json_decode( $body, true );
+				$raw_title               = sanitize_text_field( $body['post_title'] );
+				$raw_content             = sanitize_text_field( $body['post_content'] );
+				$raw_excerpt             = sanitize_text_field( $body['post_excerpt'] );
+				$raw_student_city        = sanitize_text_field( $body['student_city'] );
+				$raw_student_address     = sanitize_text_field( $body['student_address'] );
+				$raw_student_grade       = intval( $body['student_grade'] );
+				$body['post_title']      = $raw_title;
+				$body['post_content']    = $raw_content;
+				$body['post_excerpt']    = $raw_excerpt;
+				$body['student_city']    = $raw_student_city;
+				$body['student_address'] = $raw_student_address;
+				$body['student_grade']   = $raw_student_grade;
+				$post_id                 = wp_update_post( $body );
 
 				return rest_ensure_response( $post_id );
 			}
@@ -147,28 +212,43 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		 * Registers the custom endpoints
 		 */
 		public function dx_register_api_endpoints() {
+			/**
+			 * API Url: /api/v1/students/[page_number]
+			 */
 			register_rest_route( // Get all students.
-				'/api/v1',
-				'/students',
+				$this->namespace,
+				'/students/(?P<page>[1-9]{1,2})',
 				array(
-					'methods'  			  => 'GET',
-					'callback' 			  => array( $this, 'dx_get_all_student_data' ),
+					'methods'             => 'GET',
+					'callback'            => array( $this, 'dx_get_all_student_data' ),
+					'args'                => array(
+						'page' => array(
+							'required' => true,
+						),
+					),
 					'permission_callback' => '__return_true',
 				)
 			);
 
+			/**
+			 * API Url: /api/v1/student/[student_id]
+			 */
 			register_rest_route( // Get single student.
-				'/api/v1',
-				'/students/(?P<id>[\d]+)',
+				$this->namespace,
+				'/student/(?P<id>[\d]+)',
 				array(
-					'methods'  => 'GET',
-					'callback' => array( $this, 'dx_get_one_student_data' ),
+					'methods'             => 'GET',
+					'callback'            => array( $this, 'dx_get_single_student_data' ),
+					'permission_callback' => '__return_true',
 				)
 			);
 
+			/**
+			 * API Url: /api/v1/student/add/
+			 */
 			register_rest_route( // Add new student.
-				'/api/v1',
-				'/students/add/',
+				$this->namespace,
+				'/student/add/',
 				array(
 					'methods'             => 'POST',
 					'callback'            => array( $this, 'dx_add_new_student_data' ),
@@ -176,9 +256,12 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 				)
 			);
 
+			/**
+			 * API Url: /api/v1/student/edit/[student_id]
+			 */
 			register_rest_route( // Edit student by ID.
-				'/api/v1',
-				'/students/edit/(?P<id>[\d]+)',
+				$this->namespace,
+				'/student/edit/(?P<id>[\d]+)',
 				array(
 					'methods'             => 'PUT',
 					'callback'            => array( $this, 'dx_edit_student' ),
@@ -186,9 +269,12 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 				)
 			);
 
+			/**
+			 * API Url: /api/v1/student/delete/[student_id]
+			 */
 			register_rest_route( // Delete student by ID.
-				'/api/v1',
-				'/students/delete/(?P<id>[\d]+)',
+				$this->namespace,
+				'/student/delete/(?P<id>[\d]+)',
 				array(
 					'methods'             => 'DELETE',
 					'callback'            => array( $this, 'dx_delete_student_by_id' ),
