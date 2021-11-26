@@ -29,7 +29,7 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		 */
 		public function dx_get_item_permissions_check() {
 			if ( ! current_user_can( 'edit_others_posts' ) ) {
-				return new \WP_Error( 'rest_forbidden', esc_html__( 'You don\'t have permission.' ), array( 'status' => $this->dx_authorization_status_code() ) );
+				return new \WP_Error( 'rest_forbidden', esc_html__( 'You do not have permission to do this.' ), array( 'status' => $this->dx_authorization_status_code() ) );
 			}
 			return true;
 		}
