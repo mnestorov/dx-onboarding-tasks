@@ -1,14 +1,15 @@
 {
 	"apiVersion": 2,
-	"name": "create-block/students-block",
-	"title": "Students Block",
+	"name": "create-block/show-students",
+	"version": "0.1.0",
+	"title": "Show Students",
 	"category": "widgets",
-	"icon": "universal-access-alt",
+	"icon": "smiley",
 	"description": "Example block written with ESNext standard and JSX support – build step required.",
 	"supports": {
 		"html": false
 	},
-	"textdomain": "students-block",
+	"textdomain": "show-students",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
 	"style": "file:./build/style-index.css"

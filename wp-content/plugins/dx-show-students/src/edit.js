@@ -5,21 +5,6 @@
  */
 import { __ } from '@wordpress/i18n';
 
-import {
-	__experimentalNumberControl as NumberControl,
-	PanelBody,
-	PanelRow,
-	SelectControl,
-} from '@wordpress/components';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
- */
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -28,6 +13,14 @@ import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+/**
+ * React hook that is used to mark the block wrapper element.
+ * It provides all the necessary props like the class name.
+ *
+ * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
+ */
+import { __experimentalNumberControl as NumberControl, PanelBody, PanelRow, SelectControl } from '@wordpress/components';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 
 /**
@@ -38,10 +31,10 @@ import ServerSideRender from '@wordpress/server-side-render';
  *
  * @return {WPElement} Element to render.
  */
- export default function Edit(props) {
-	return (
-		<>
-			<InspectorControls>
+export function Edit(props) {
+    return (
+        <>
+            <InspectorControls>
 				<PanelBody
 					title="Student CTP Settings"
 					initialOpen={true}
@@ -74,10 +67,10 @@ import ServerSideRender from '@wordpress/server-side-render';
 
 			<div {...useBlockProps()}>
 				<ServerSideRender
-					block="create-block/students-block"
-					attributes={props.attributes}
-				/>
+                    block="create-block/show-students"
+                    attributes={ props.attributes }
+                />
 			</div>
-		</>
-	);
+        </>
+    );
 }
