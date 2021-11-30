@@ -45,7 +45,7 @@ export function Edit(props) {
 							value={props.attributes.studentStatus}
 							options={[
 								{ label: 'Active', value: 'active' },
-								{ label: 'Inactive', value: 'inactive' },
+								{ label: 'Inactive', value: 'no' },
 							]}
 							onChange={(newval) =>
 								props.setAttributes({ studentStatus: newval })
