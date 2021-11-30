@@ -155,6 +155,7 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 				$raw_student_city        = sanitize_text_field( $body['student_city'] );
 				$raw_student_address     = sanitize_text_field( $body['student_address'] );
 				$raw_student_grade       = intval( $body['student_grade'] );
+				$body['post_type']       = 'student';
 				$body['post_title']      = $raw_title;
 				$body['post_content']    = $raw_content;
 				$body['post_excerpt']    = $raw_excerpt;
