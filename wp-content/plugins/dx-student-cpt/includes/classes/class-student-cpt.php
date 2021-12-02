@@ -374,7 +374,7 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 		 * @return void
 		 */
 		public function dx_student_load_widget() {
-			register_widget( 'StudentWidget' );
+			register_widget( 'Student_Widget' );
 		}
 	}
 }
