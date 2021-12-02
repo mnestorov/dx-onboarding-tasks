@@ -20,11 +20,11 @@ if ( ! class_exists( 'InsertContent' ) ) {
 
 		/**
 		 * Insert text before post content
+		 *
+		 * @param string $content contains the page content.
+		 * @return $content
 		 */
 		public function dx_insert_before_content( $content ) {
-			// if ( ! is_single() ) {
-			// 	return $content;
-			// }
 			/**
 			 * Important:
 			 * 1) get_option( 'my-onboarding-plugin-option' ) comes from PluginSettings plugin
@@ -39,6 +39,9 @@ if ( ! class_exists( 'InsertContent' ) ) {
 
 		/**
 		 * Insert open <p> tag after post content
+		 *
+		 * @param string $content contains opening html <p> tag.
+		 * @return $content
 		 */
 		public function dx_opening_p( $content ) {
 			$content = $content . '<p>';
@@ -47,6 +50,9 @@ if ( ! class_exists( 'InsertContent' ) ) {
 
 		/**
 		 * Insert closing </p> tag tag after post content
+		 *
+		 * @param string $content contains closing html <p> tag.
+		 * @return $content
 		 */
 		public function dx_closing_p( $content ) {
 			$content = $content . '</p>';
@@ -56,6 +62,9 @@ if ( ! class_exists( 'InsertContent' ) ) {
 		/**
 		 * Wrap <div> around all <p> tags in post content
 		 * Not hooked
+		 *
+		 * @param string $content contains html content of the page.
+		 * @return string
 		 */
 		public function dx_text_wrapper( $content ) {
 			return preg_replace_callback(

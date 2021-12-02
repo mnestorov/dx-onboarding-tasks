@@ -11,7 +11,9 @@ namespace StudentCpt {
 	class Bootstrap {
 
 		/**
-		 * Registering all classes that power the plugin
+		 * Registering all classes that power the plugin.
+		 *
+		 * @var object
 		 */
 		protected $loader;
 
@@ -21,17 +23,23 @@ namespace StudentCpt {
 		public function __construct() {
 			add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
 			add_action( 'init', array( $this, 'dx_run' ), 0 );
-			add_action('rest_api_init', array( $this, 'init_wp_rest_multiple_post_type_endpoint' ) );
+			add_action( 'rest_api_init', array( $this, 'init_wp_rest_multiple_post_type_endpoint' ) );
 		}
 
-		public function init_wp_rest_multiple_post_type_endpoint()
-		{
+		/**
+		 * Custom class for querying for multiple post-types - FOR TEST ONLY!
+		 *
+		 * @return void
+		 */
+		public function init_wp_rest_multiple_post_type_endpoint() {
 			$controller = new \WpRestMultiplePostTypeController();
 			$controller->register_routes();
 		}
 
 		/**
-		 * Includes all the plugin classes with priority
+		 * Includes all the plugin classes with priority.
+		 *
+		 * @return void
 		 */
 		public function dx_include() {
 			// Include the classes.
@@ -46,7 +54,9 @@ namespace StudentCpt {
 		}
 
 		/**
-		 * Instantiate our plugin classes
+		 * Instantiate our plugin classes.
+		 *
+		 * @return void
 		 */
 		public function dx_run() {
 			$this->loader = new \StudentCPT();

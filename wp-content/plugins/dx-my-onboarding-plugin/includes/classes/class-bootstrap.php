@@ -12,6 +12,8 @@ namespace MyOnboardingPlugin {
 
 		/**
 		 * Registering all classes that power the plugin.
+		 *
+		 * @var object
 		 */
 		protected $loader;
 
@@ -25,6 +27,8 @@ namespace MyOnboardingPlugin {
 
 		/**
 		 * Includes all the plugin classes with priority.
+		 *
+		 * @return void
 		 */
 		public function dx_include() {
 			// Include the classes.
@@ -35,6 +39,8 @@ namespace MyOnboardingPlugin {
 
 		/**
 		 * Instantiate our plugin classes.
+		 *
+		 * @return void
 		 */
 		public function dx_run() {
 			$this->loader = new \EnqueueScripts();

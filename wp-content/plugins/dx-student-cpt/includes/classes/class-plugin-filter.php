@@ -17,18 +17,28 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 			add_action( 'wp_ajax_dx_enable_filters', array( $this, 'dx_enable_filters' ) );
 		}
 
+		/**
+		 * Add the plugin settings page do WP admin
+		 *
+		 * @return void
+		 */
 		public function dx_add_plugin_page() {
 			add_menu_page(
 				'Student CPT Admin',                     // This is page_title.
-				'Student CPT Settings',                           // This is menu_title.
+				'Student CPT Settings',                  // This is menu_title.
 				'manage_options',                        // This is capability.
-				'student-cpt',                  // This is menu_slug.
+				'student-cpt',                           // This is menu_slug.
 				array( $this, 'dx_create_admin_page' ),  // This is function.
 				'dashicons-admin-generic',               // This is icon_url.
 				65                                       // This is position.
 			);
 		}
 
+		/**
+		 * Create the structure of the plugin settings page
+		 *
+		 * @return void
+		 */
 		public function dx_create_admin_page() {
 			$this->dx_options = get_option( 'student_cpt_option' ); ?>
 			<div class="wrap">
@@ -45,10 +55,15 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 			<?php
 		}
 
+		/**
+		 * Adds the settings fields for the plugin settings page
+		 *
+		 * @return void
+		 */
 		public function dx_page_init() {
 			register_setting(
-				'dx_option_group',                   // This is option_group.
-				'is_checked',                        // This is option_name.
+				'dx_option_group',                    // This is option_group.
+				'is_checked',                         // This is option_name.
 			);
 			add_settings_section(
 				'dx_setting_section',                 // This is id.
@@ -65,10 +80,20 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 			);
 		}
 
+		/**
+		 * Add the section info in to the plugin settings page
+		 *
+		 * @return void
+		 */
 		public function dx_section_info() {
 			// Add some code in here.
 		}
 
+		/**
+		 * Callback function
+		 *
+		 * @return void
+		 */
 		public function dx_filter_callback() {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_die( __( 'You don\'t have permissions to access this page.' ) );
@@ -82,6 +107,8 @@ if ( ! class_exists( 'PluginFilter' ) ) {
 
 		/**
 		 * Handles the AJAX response from the main.js
+		 *
+		 * @return void
 		 */
 		public function dx_enable_filters() {
 			$student_cpt_option = $_POST['is_checked'];

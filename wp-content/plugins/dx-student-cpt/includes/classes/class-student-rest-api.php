@@ -2,13 +2,15 @@
 
 if ( ! class_exists( 'StudentRestApi' ) ) {
 	/**
-	 * Class StudentRestApi handles all custom REST API requests.
-	 * 
+	 * Class StudentRestApi handles all custom REST API requests
+	 *
 	 * @package    StudentCPT
 	 * @author     Martin Nestorov
 	 */
 	class StudentRestApi {
 		/**
+		 * Name space for the RestApi route
+		 *
 		 * @var string $namespace
 		 */
 		private $namespace;
@@ -23,9 +25,9 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		}
 
 		/**
-		 * Check permissions for the posts.
+		 * Check permissions for the posts
 		 *
-		 * @param WP_REST_Request $request Current request.
+		 * @return true
 		 */
 		public function dx_get_item_permissions_check() {
 			if ( ! current_user_can( 'edit_others_posts' ) ) {
@@ -35,7 +37,10 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 		}
 
 		/**
-		 * Sets up the proper HTTP status code for authorization.
+		 * Sets up the proper HTTP status code for authorization
+		 *
+		 * @var int $status
+		 * @return $status
 		 */
 		public function dx_authorization_status_code() {
 			$status = 401;
@@ -49,6 +54,9 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 
 		/**
 		 * Callback for getting data for all the students
+		 *
+		 * @param \WP_REST_Request $request contains data from the request, to be passed to the callback.
+		 * @return rest_ensure_response()
 		 */
 		public function dx_get_all_student_data( \WP_REST_Request $request ) {
 			$page = intval( $request['page'] );
@@ -107,6 +115,9 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 
 		/**
 		 * Callback for getting data for single student
+		 *
+		 * @param \WP_REST_Request $request retrieves merged parameters from the request.
+		 * @return rest_ensure_response()
 		 */
 		public function dx_get_single_student_data( \WP_REST_Request $request ) {
 			$post_id = $request->get_params();
@@ -141,6 +152,9 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 
 		/**
 		 * Callback for adding a new student
+		 *
+		 * @param object $request retrieves the request body content.
+		 * @return false
 		 */
 		public function dx_add_new_student_data( $request ) {
 			$body = $request->get_body();
@@ -172,11 +186,14 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 
 		/**
 		 * Callback for registering the update route
+		 *
+		 * @param object $request retrieves the request body content.
+		 * @return false
 		 */
 		public function dx_edit_student( $request ) {
 			$body = $request->get_body();
 
-			//error_log( print_r( $body, true ) );
+			// error_log( print_r( $body, true ) );
 
 			if ( ! empty( $body ) ) {
 				$body                    = json_decode( $body, true );
@@ -186,6 +203,7 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 				$raw_student_city        = sanitize_text_field( $body['student_city'] );
 				$raw_student_address     = sanitize_text_field( $body['student_address'] );
 				$raw_student_grade       = intval( $body['student_grade'] );
+				$body['post_type']       = 'student';
 				$body['post_title']      = $raw_title;
 				$body['post_content']    = $raw_content;
 				$body['post_excerpt']    = $raw_excerpt;
@@ -202,6 +220,9 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 
 		/**
 		 * Callback for deleting a student by ID
+		 *
+		 * @param object $request retrieves the request id.
+		 * @return rest_ensure_response()
 		 */
 		public function dx_delete_student_by_id( $request ) {
 			$post = wp_delete_post( $request['id'] );
@@ -211,6 +232,8 @@ if ( ! class_exists( 'StudentRestApi' ) ) {
 
 		/**
 		 * Registers the custom endpoints
+		 *
+		 * @return void
 		 */
 		public function dx_register_api_endpoints() {
 			/**

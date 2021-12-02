@@ -9,12 +9,20 @@ if ( ! class_exists( 'Loadmore' ) ) {
 	 */
 	class Loadmore {
 
+		/**
+		 * Constructor
+		 */
 		public function __construct() {
 			add_action( 'wp_enqueue_scripts', array( $this, 'dx_loadmore_scripts' ) );
 			add_action( 'wp_ajax_loadmore', array( $this, 'dx_loadmore_ajax_handler' ) );
 			add_action( 'wp_ajax_nopriv_loadmore', array( $this, 'dx_loadmore_ajax_handler' ) );
 		}
 
+		/**
+		 * Load scripts and styles
+		 *
+		 * @return void
+		 */
 		public function dx_loadmore_scripts() {
 			global $wp_query;
 
@@ -26,7 +34,7 @@ if ( ! class_exists( 'Loadmore' ) ) {
 				'dx-loadmore',
 				'loadmore_params',
 				array(
-					'ajaxurl'      => site_url() . '/wp-admin/admin-ajax.php', // WP AJAX.
+					'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php', // WP AJAX.
 				)
 			);
 
@@ -34,8 +42,12 @@ if ( ! class_exists( 'Loadmore' ) ) {
 			wp_enqueue_style( 'dx-main' );
 		}
 
+		/**
+		 * Ajax handler for the load more button
+		 *
+		 * @return void
+		 */
 		public function dx_loadmore_ajax_handler() {
-			
 			$args                     = json_decode( stripslashes( ! isset( $_POST['query'] ) ?? '' ), true );
 			$args['post_type']        = 'student';
 			$args['posts_per_page']   = 3;

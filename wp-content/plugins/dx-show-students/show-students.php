@@ -16,10 +16,10 @@
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
- * through the block editor in the corresponding context.
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/
+ *
+ * @return void
  */
 function dx_create_block_show_students_init() {
 	register_block_type(
@@ -29,6 +29,7 @@ function dx_create_block_show_students_init() {
 		)
 	);
 }
+
 add_action( 'init', 'dx_create_block_show_students_init' );
 
 add_action(
@@ -50,7 +51,11 @@ add_action(
 );
 
 /**
- * Loads students (based on 2 settings) inside the Gutenberg Block
+ * Loads students inside the Gutenberg Block
+ *
+ * @var string $html_content
+ * @param array $block_attributes provides information about the data stored by a block.
+ * @return $html_content
  */
 function dx_load_students_in_block( $block_attributes ) {
 

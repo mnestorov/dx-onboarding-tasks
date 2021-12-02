@@ -19,6 +19,8 @@ if ( ! class_exists( 'StudentSidebar' ) ) {
 
 		/**
 		 * Registers the students custom sidebar
+		 *
+		 * @return void
 		 */
 		public function dx_students_sidebar() {
 			register_sidebar(
@@ -32,6 +34,9 @@ if ( ! class_exists( 'StudentSidebar' ) ) {
 
 		/**
 		 * Adding the students custom sidebar before post content
+		 *
+		 * @param string $content return sidebar content.
+		 * @return $content
 		 */
 		public function dx_add_sidebar_before( $content ) {
 			if ( is_single() && is_active_sidebar( 'students_sidebar' ) ) {

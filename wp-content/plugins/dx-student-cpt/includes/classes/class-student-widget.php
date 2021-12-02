@@ -22,11 +22,15 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 
 		/**
 		 * Adding widget elements
-		 * Important: Output cannot be scaped!
+		 * Important: Output cannot be scraped!
+		 *
+		 * @param array $args contains the widget arguments.
+		 * @param array $instance
+		 * @return void
 		 */
 		public function widget( $args, $instance ) {
 			$template_path = __DIR__ . '../../templates/form.php';
-			$title = apply_filters( 'widget_title', $instance['title'] );
+			$title         = apply_filters( 'widget_title', $instance['title'] );
 
 			echo $args['before_widget'];
 
@@ -50,6 +54,9 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 
 		/**
 		 * Creates widget backend
+		 *
+		 * @param array $instance
+		 * @return void
 		 */
 		public function form( $instance ) {
 			if ( isset( $instance['title'] ) ) {
@@ -67,6 +74,10 @@ if ( ! class_exists( 'StudentWidget' ) ) {
 
 		/**
 		 * Overrides the wp update function
+		 *
+		 * @param array $new_instance contains the new content data.
+		 * @param array $old_instance contains the old content data.
+		 * @return $instance
 		 */
 		public function update( $new_instance, $old_instance ) {
 			$instance          = array();

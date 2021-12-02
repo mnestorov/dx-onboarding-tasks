@@ -11,7 +11,9 @@ namespace DisplayRemoteUrls {
 	class Bootstrap {
 
 		/**
-		 * Registering all classes that power the plugin.
+		 * Registering all classes that power the plugin
+		 *
+		 * @var object
 		 */
 		protected $loader;
 
@@ -24,7 +26,9 @@ namespace DisplayRemoteUrls {
 		}
 
 		/**
-		 * Includes all the plugin classes with priority.
+		 * Includes all the plugin classes with priority
+		 *
+		 * @return void
 		 */
 		public function dx_include() {
 			// Include the classes.
@@ -32,7 +36,9 @@ namespace DisplayRemoteUrls {
 		}
 
 		/**
-		 * Instantiate our plugin classes.
+		 * Instantiate our plugin classes
+		 *
+		 * @return void
 		 */
 		public function dx_run() {
 			$this->loader = new \DisplayRemoteUrls();

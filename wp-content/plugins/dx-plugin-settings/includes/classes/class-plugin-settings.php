@@ -16,6 +16,11 @@ if ( ! class_exists( 'PluginSettings' ) ) {
 			add_action( 'admin_init', array( $this, 'dx_page_init' ) );
 		}
 
+		/**
+		 * Add the plugin settings page do WP admin
+		 *
+		 * @return void
+		 */
 		public function dx_add_plugin_page() {
 			add_menu_page(
 				'My Onboarding Plugin',                  // This is page_title.
@@ -28,6 +33,11 @@ if ( ! class_exists( 'PluginSettings' ) ) {
 			);
 		}
 
+		/**
+		 * Create the structure of the plugin settings page
+		 *
+		 * @return void
+		 */
 		public function dx_create_admin_page() {
 			$this->dx_options = get_option( 'my_onboarding_plugin_option' ); ?>
 			<div class="wrap">
@@ -45,6 +55,11 @@ if ( ! class_exists( 'PluginSettings' ) ) {
 			<?php
 		}
 
+		/**
+		 * Adds the settings fields for the plugin settings page
+		 *
+		 * @return void
+		 */
 		public function dx_page_init() {
 			register_setting(
 				'dx_option_group',                     // This is option_group.
@@ -66,6 +81,12 @@ if ( ! class_exists( 'PluginSettings' ) ) {
 			);
 		}
 
+		/**
+		 * Sanitizes a string from user input or from the database
+		 *
+		 * @param array $input
+		 * @return void
+		 */
 		public function dx_sanitize( $input ) {
 			$sanitary_values = array();
 			if ( isset( $input['filter'] ) ) {
@@ -74,10 +95,20 @@ if ( ! class_exists( 'PluginSettings' ) ) {
 			return $sanitary_values;
 		}
 
+		/**
+		 * Add the section info in to the plugin settings page
+		 *
+		 * @return void
+		 */
 		public function dx_section_info() {
 			// Add some code in here.
 		}
 
+		/**
+		 * Callback function
+		 *
+		 * @return void
+		 */
 		public function dx_filter_callback() {
 			printf(
 				'<input type="checkbox" name="my_onboarding_plugin_option[filter]" id="filter" value="filter" %s>',

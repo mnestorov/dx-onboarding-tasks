@@ -19,6 +19,8 @@ class DisplayRemoteUrls {
 
 	/**
 	 * Displays the form through wchih URLs are submitted
+	 *
+	 * @return void
 	 */
 	public function dx_sanitized_links_options() {
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -48,6 +50,8 @@ class DisplayRemoteUrls {
 
 	/**
 	 * Adds the plugin menu page to the admin sidebar
+	 *
+	 * @return void
 	 */
 	public function dx_sanitized_links_plugin_menu() {
 		add_menu_page( 'Display Remote Urls Plugin', 'Display Remote Urls', 'manage_options', DR_URL_SLUG . '/sanitized-links-admin.php', array( $this, 'dx_sanitized_links_options' ) );
@@ -55,11 +59,19 @@ class DisplayRemoteUrls {
 
 	/**
 	 * Enqueue JavaScript to the admin page
+	 *
+	 * @return void
 	 */
 	public function dx_load_scripts() {
 		wp_register_script( 'main', DR_URL_PATH . './assets/js/main.js', array( 'jquery' ), false, true );
 		wp_enqueue_script( 'main' );
-		wp_localize_script( 'main', 'main_object', array( 'main_url' => admin_url( 'admin-ajax.php' ) ) );
+		wp_localize_script(
+			'main',
+			'main_object',
+			array(
+				'main_url' => admin_url( 'admin-ajax.php' )
+			)
+		);
 	}
 
 	/**

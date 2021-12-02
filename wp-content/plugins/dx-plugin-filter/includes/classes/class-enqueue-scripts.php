@@ -9,6 +9,9 @@ if ( ! class_exists( 'EnqueueScripts' ) ) {
 	 * @author     Martin Nestorov
 	 */
 	class EnqueueScripts {
+		/**
+		 * Constructor
+		 */
 		public function __construct() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'dx_enqueue_scripts' ) );
 		}
@@ -16,7 +19,7 @@ if ( ! class_exists( 'EnqueueScripts' ) ) {
 		/**
 		 * Enqueue scripts for the child theme
 		 *
-		 * @param $hook
+		 * @return void
 		 */
 		public function dx_enqueue_scripts() {
 			wp_enqueue_script( 'dx_enabled_filters_script', MPF_PATH . './includes/assets/js/main.js', array( 'jquery' ) );

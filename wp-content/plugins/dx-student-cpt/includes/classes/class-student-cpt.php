@@ -27,6 +27,8 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * Register the Students CPT
+		 *
+		 * @return void
 		 */
 		public function dx_register_student_type() {
 			$labels = array(
@@ -46,7 +48,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				'not_found_in_trash'    => __( 'No students found in Trash.', 'studentsctp' ),
 				'show_in_rest'          => true,
 				'rest_base'             => 'students',
-    			'rest_controller_class' => 'WP_REST_Terms_Controller',
+				'rest_controller_class' => 'WP_REST_Terms_Controller',
 			);
 
 			$args = array(
@@ -130,6 +132,8 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		/**
 		 * Adds all student meta boxes
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
+		 *
+		 * @return void
 		 */
 		public function dx_add_student_meta_boxes() {
 			add_meta_box(
@@ -162,7 +166,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 * Describes how the meta data from the meta boxes will be saved
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
-		 * @param number $post_id specifies the ID of the post that is being saved.
+		 * @param int $post_id specifies the ID of the post that is being saved.
 		 */
 		public function dx_save_meta_boxes( $post_id ) {
 			if ( array_key_exists( 'city', $_POST ) ) {
@@ -210,7 +214,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 * Adds the Active checkbox to the student CPT admin panel
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
 		 *
-		 * @param array $defaults an array containing the default admin panel columns
+		 * @param array $defaults an array containing the default admin panel columns.
 		 */
 		public function dx_student_add_default_column( $defaults ) {
 			$defaults['active'] = 'Active';
@@ -220,9 +224,13 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		/**
 		 * The callback for the Active checkbox
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
+		 *
+		 * @param string $column_name
+		 * @param int    $post_ID
+		 * @return void
 		 */
 		public function dx_student_columns_content( $column_name, $post_ID ) {
-			if ( 'active' == $column_name ) {
+			if ( 'active' === $column_name ) {
 				?>
 				<input type="checkbox" name="active_student_checkbox" class="active_student_checkbox" id="<?php echo $post_ID; ?>" <?php checked( get_post_meta( $post_ID, 'student_active', true ), 'active' ); ?>>
 				<?php
@@ -231,6 +239,8 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 
 		/**
 		 * Loads scripts
+		 *
+		 * @return void
 		 */
 		public function dx_student_cpt_load_javascript() {
 			wp_register_script( 'student_ajax_calls', SCPT_URL_PATH . './includes/assets/js/ajax.js', array( 'jquery' ), false, true );
@@ -241,7 +251,8 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 * Student CPT shortcode
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229477769/f
 		 *
-		 * @param array $atts practically accepts only one attribute and it is a Student's ID
+		 * @param array $atts practically accepts only one attribute and it is a Student's ID.
+		 * @return void
 		 */
 		public function dx_display_student_shortcode( $atts ) {
 			$student_display = '';
@@ -268,9 +279,9 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 						$get_single->the_post();
 						?>
 						<div style="padding: 15px; border: 2px solid black;" class="<?php echo get_post_meta( get_the_ID(), 'student_active', true ); ?>">
-						<h2><?php echo get_the_title(); ?> </h2>
-						<h3>Grade: <?php echo get_post_meta( get_the_ID(), 'student_grade', true ); ?></h3>
-						<h3>Status: <?php echo get_post_meta( get_the_ID(), 'student_active', true ); ?></h3>
+							<h2><?php echo get_the_title(); ?> </h2>
+							<h3>Grade: <?php echo get_post_meta( get_the_ID(), 'student_grade', true ); ?></h3>
+							<h3>Status: <?php echo get_post_meta( get_the_ID(), 'student_active', true ); ?></h3>
 						</div>
 						<?php
 					}
@@ -286,13 +297,18 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 				return $student_display;
 
 			} else {
-				echo '<h2>Silence is golden.</h2>';
+				echo '<h2>No active students found.</h2>';
 			}
 		}
 
 		/**
 		 * Create Shortcode to display list of students
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229500262/f
+		 *
+		 * @var string $listing_display
+		 *
+		 * @param array $atts contains shortcode attributes for isplaying requested data.
+		 * @return $listing_display which contains html data.
 		 */
 		public function dx_students_listing_shortcode( $atts ) {
 			$listing_display = '';
@@ -332,6 +348,8 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		/**
 		 * Changes the Students CPT meta from active to inactive
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
+		 *
+		 * @return void
 		 */
 		public function dx_toggle_student_activated() {
 			if ( isset( $_POST['student_id'] ) ) {
@@ -350,8 +368,10 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		}
 
 		/**
-		 * Registers the student widget
+		 * Register the student widget
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229251143/f
+		 *
+		 * @return void
 		 */
 		public function dx_student_load_widget() {
 			register_widget( 'StudentWidget' );
