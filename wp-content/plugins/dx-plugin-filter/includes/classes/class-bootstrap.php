@@ -1,12 +1,15 @@
 <?php
+/**
+ * Managing plugin dependencies and loading the plugin.
+ *
+ * @package MyPluginFilter
+ * @author  Martin Nestorov
+ */
 
-namespace MyPluginFilter {
+namespace My_Plugin_Filter {
 
 	/**
-	 * A class for managing plugin dependencies and loading the plugin.
-	 *
-	 * @package    MyPluginFilter
-	 * @author     Martin Nestorov
+	 * Loading all dependencies
 	 */
 	class Bootstrap {
 
@@ -42,8 +45,8 @@ namespace MyPluginFilter {
 		 * @return void
 		 */
 		public function dx_run() {
-			$this->loader = new \EnqueueScripts();
-			$this->loader = new \PluginFilter();
+			$this->loader = new \Enqueue_Scripts();
+			$this->loader = new \Plugin_Filter();
 		}
 	}
 }

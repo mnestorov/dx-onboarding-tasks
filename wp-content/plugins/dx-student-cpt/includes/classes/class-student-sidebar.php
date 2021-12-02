@@ -1,14 +1,14 @@
 <?php
 
-if ( ! class_exists( 'StudentSidebar' ) ) {
+if ( ! class_exists( 'Student_Sidebar' ) ) {
 	/**
-	 * Class StudentSidebar
+	 * Class Student_Sidebar
 	 * Asana task: https://app.asana.com/0/1201345304239951/1201345346694047/f
 	 *
 	 * @package    StudentCPT
 	 * @author     Martin Nestorov
 	 */
-	class StudentSidebar {
+	class Student_Sidebar {
 		/**
 		 * Constructor
 		 */

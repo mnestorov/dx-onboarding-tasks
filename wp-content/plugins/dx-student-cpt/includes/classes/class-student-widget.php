@@ -1,14 +1,14 @@
 <?php
 
-if ( ! class_exists( 'StudentWidget' ) ) {
+if ( ! class_exists( 'Student_Widget' ) ) {
 	/**
-	 * Class StudentWidget
+	 * Class Student_Widget
 	 * Asana task: https://app.asana.com/0/1201345304239951/1201345229251143/f
 	 *
 	 * @package    StudentCPT
 	 * @author     Martin Nestorov
 	 */
-	class StudentWidget extends \WP_Widget {
+	class Student_Widget extends \WP_Widget {
 		/**
 		 * Constructor
 		 */

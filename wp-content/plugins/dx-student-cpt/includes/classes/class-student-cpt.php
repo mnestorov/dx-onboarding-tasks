@@ -1,14 +1,14 @@
 <?php
 
-if ( ! class_exists( 'StudentCPT' ) ) {
+if ( ! class_exists( 'Student_CPT' ) ) {
 	/**
-	 * Class StudentCPT
+	 * Class Student_CPT
 	 * Asana task: https://app.asana.com/0/1201345304239951/1201345347126925/f
 	 *
 	 * @package    StudentCPT
 	 * @author     Martin Nestorov
 	 */
-	class StudentCPT {
+	class Student_CPT {
 		/**
 		 * Constructor
 		 */
@@ -252,7 +252,7 @@ if ( ! class_exists( 'StudentCPT' ) ) {
 		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229477769/f
 		 *
 		 * @param array $atts practically accepts only one attribute and it is a Student's ID.
-		 * @return void
+		 * @return $student_display
 		 */
 		public function dx_display_student_shortcode( $atts ) {
 			$student_display = '';

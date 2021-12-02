@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class DisplayRemoteUrls
+ * Class Display_Remote_Urls
  * Asana task: https://app.asana.com/0/1201345304239951/1201345383490682/f
  *
  * @package    DisplayRemoteUrls
  * @author     Martin Nestorov
  */
-class DisplayRemoteUrls {
+class Display_Remote_Urls {
 	/**
 	 * Constructor
 	 */

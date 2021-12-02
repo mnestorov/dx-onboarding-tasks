@@ -53,4 +53,4 @@ if ( ! defined( 'MPF_PATH' ) ) {
 require_once 'includes/classes/class-bootstrap.php';
 
 // Instantiate the bootstrap (master) class.
-$bootstrap = new \MyPluginFilter\Bootstrap();
+$bootstrap = new \My_Plugin_Filter\Bootstrap();

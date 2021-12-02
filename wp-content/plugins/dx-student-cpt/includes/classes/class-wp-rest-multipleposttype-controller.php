@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'WpRestMultiplePostTypeController' ) ) {
+if ( ! class_exists( 'Wp_Rest_MultiplePostType_Controller' ) ) {
 	/**
 	 * Custom endpoint for querying for multiple post-types.
 	 * Mimics `WP_REST_Posts_Controller` as closely as possible.
@@ -12,7 +12,7 @@ if ( ! class_exists( 'WpRestMultiplePostTypeController' ) ) {
 	 *
 	 * @author Ruben Vreeken
 	 */
-	class WpRestMultiplePostTypeController extends \WP_REST_Controller {
+	class Wp_Rest_MultiplePostType_Controller extends \WP_REST_Controller {
 		/**
 		 * Constructor
 		 */

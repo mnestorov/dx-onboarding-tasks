@@ -1,13 +1,13 @@
 <?php
 
-if ( ! class_exists( 'PluginFilter' ) ) {
+if ( ! class_exists( 'Plugin_Filter' ) ) {
 	/**
-	 * Class PluginFilter
+	 * Class Plugin_Filter
 	 *
 	 * @package    StudentCTP
 	 * @author     Martin Nestorov
 	 */
-	class PluginFilter {
+	class Plugin_Filter {
 		/**
 		 * Constructor
 		 */

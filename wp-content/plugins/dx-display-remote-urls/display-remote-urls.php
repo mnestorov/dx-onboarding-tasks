@@ -60,4 +60,4 @@ if ( ! defined( 'DR_URL_SLUG' ) ) {
 require_once 'includes/classes/class-bootstrap.php';
 
 // Instantiate the bootstrap (master) class.
-$bootstrap = new \DisplayRemoteUrls\Bootstrap();
+$bootstrap = new \Display_Remote_Urls\Bootstrap();

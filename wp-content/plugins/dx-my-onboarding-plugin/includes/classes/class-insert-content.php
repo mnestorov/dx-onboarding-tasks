@@ -1,13 +1,13 @@
 <?php
 
-if ( ! class_exists( 'InsertContent' ) ) {
+if ( ! class_exists( 'Insert_Content' ) ) {
 	/**
-	 * Class InsertContent
+	 * Class Insert_Content
 	 *
 	 * @package    MyOnboardingPlugin
 	 * @author     Martin Nestorov
 	 */
-	class InsertContent {
+	class Insert_Content {
 		/**
 		 * Constructor
 		 */

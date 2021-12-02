@@ -1,12 +1,15 @@
 <?php
+/**
+ * Managing plugin dependencies and loading the plugin.
+ *
+ * @package DisplayRemoteUrls
+ * @author  Martin Nestorov
+ */
 
-namespace DisplayRemoteUrls {
+namespace Display_Remote_Urls {
 
 	/**
-	 * A class for managing plugin dependencies and loading the plugin.
-	 *
-	 * @package    DisplayRemoteUrls
-	 * @author     Martin Nestorov
+	 * Loading all dependencies
 	 */
 	class Bootstrap {
 
@@ -41,7 +44,7 @@ namespace DisplayRemoteUrls {
 		 * @return void
 		 */
 		public function dx_run() {
-			$this->loader = new \DisplayRemoteUrls();
+			$this->loader = new \Display_Remote_Urls();
 		}
 	}
 }

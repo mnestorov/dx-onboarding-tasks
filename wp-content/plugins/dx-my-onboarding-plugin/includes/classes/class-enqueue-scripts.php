@@ -1,14 +1,14 @@
 <?php
 
-if ( ! class_exists( 'EnqueueScripts' ) ) {
+if ( ! class_exists( 'Enqueue_Scripts' ) ) {
 	/**
-	 * Class EnqueueScripts
+	 * Class Enqueue_Scripts
 	 * Asana task: https://app.asana.com/0/1201345304239951/1201345383459199/f
 	 *
-	 * @package    MyPluginFilter
+	 * @package    MyOnboardingPlugin
 	 * @author     Martin Nestorov
 	 */
-	class EnqueueScripts {
+	class Enqueue_Scripts {
 		/**
 		 * Constructor
 		 */

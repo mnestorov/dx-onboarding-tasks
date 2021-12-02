@@ -1,15 +1,15 @@
 <?php
 
-if ( ! class_exists( 'StudentRestApi' ) ) {
+if ( ! class_exists( 'Student_Rest_Api' ) ) {
 	/**
-	 * Class StudentRestApi handles all custom REST API requests
+	 * Class Student_Rest_Api handles all custom REST API requests
 	 *
 	 * @package    StudentCPT
 	 * @author     Martin Nestorov
 	 */
-	class StudentRestApi {
+	class Student_Rest_Api {
 		/**
-		 * Name space for the RestApi route
+		 * Namespace for the RestApi route
 		 *
 		 * @var string $namespace
 		 */

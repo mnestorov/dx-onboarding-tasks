@@ -1,17 +1,20 @@
 <?php
+/**
+ * Managing plugin dependencies and loading the plugin.
+ *
+ * @package StudentCTP
+ * @author  Martin Nestorov
+ */
 
-namespace StudentCpt {
+namespace Student_Cpt {
 
 	/**
-	 * A class for managing plugin dependencies and loading the plugin.
-	 *
-	 * @package    StudentCPT
-	 * @author     Martin Nestorov
+	 * Loading all dependencies
 	 */
 	class Bootstrap {
 
 		/**
-		 * Registering all classes that power the plugin.
+		 * Registering all classes that power the plugin
 		 *
 		 * @var object
 		 */
@@ -32,12 +35,12 @@ namespace StudentCpt {
 		 * @return void
 		 */
 		public function init_wp_rest_multiple_post_type_endpoint() {
-			$controller = new \WpRestMultiplePostTypeController();
+			$controller = new \Wp_Rest_MultiplePostType_Controller();
 			$controller->register_routes();
 		}
 
 		/**
-		 * Includes all the plugin classes with priority.
+		 * Includes all the plugin classes with priority
 		 *
 		 * @return void
 		 */
@@ -54,17 +57,17 @@ namespace StudentCpt {
 		}
 
 		/**
-		 * Instantiate our plugin classes.
+		 * Instantiate our plugin classes
 		 *
 		 * @return void
 		 */
 		public function dx_run() {
-			$this->loader = new \StudentCPT();
-			$this->loader = new \StudentSidebar();
-			$this->loader = new \StudentWidget();
-			$this->loader = new \StudentRestApi();
-			$this->loader = new \EnqueueScripts();
-			$this->loader = new \PluginFilter();
+			$this->loader = new \Student_CPT();
+			$this->loader = new \Student_Sidebar();
+			$this->loader = new \Student_Widget();
+			$this->loader = new \Student_Rest_Api();
+			$this->loader = new \Enqueue_Scripts();
+			$this->loader = new \Plugin_Filter();
 			$this->loader = new \Loadmore();
 		}
 	}

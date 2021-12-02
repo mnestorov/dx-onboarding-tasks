@@ -1,13 +1,13 @@
 <?php
 
-if ( ! class_exists( 'EnqueueScripts' ) ) {
+if ( ! class_exists( 'Enqueue_Scripts' ) ) {
 	/**
-	 * Class EnqueueScripts
+	 * Class Enqueue_Scripts
 	 *
 	 * @package    StudentCTP
 	 * @author     Martin Nestorov
 	 */
-	class EnqueueScripts {
+	class Enqueue_Scripts {
 		/**
 		 * Constructor
 		 */

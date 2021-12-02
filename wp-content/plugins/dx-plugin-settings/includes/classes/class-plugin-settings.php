@@ -1,13 +1,13 @@
 <?php
 
-if ( ! class_exists( 'PluginSettings' ) ) {
+if ( ! class_exists( 'Plugin_Settings' ) ) {
 	/**
 	 * Class PluginSettings
 	 *
 	 * @package    MyPluginSettings
 	 * @author     Martin Nestorov
 	 */
-	class PluginSettings {
+	class Plugin_Settings {
 		/**
 		 * Constructor
 		 */

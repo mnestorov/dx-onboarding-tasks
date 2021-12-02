@@ -1,14 +1,14 @@
 <?php
 
-if ( ! class_exists( 'PluginFilter' ) ) {
+if ( ! class_exists( 'Plugin_Filter' ) ) {
 	/**
-	 * Class PluginFilter
+	 * Class Plugin_Filter
 	 * Asana task: https://app.asana.com/0/1201345304239951/1201345383459199/f
 	 *
 	 * @package    MyPluginFilter
 	 * @author     Martin Nestorov
 	 */
-	class PluginFilter {
+	class Plugin_Filter {
 		/**
 		 * Constructor
 		 */

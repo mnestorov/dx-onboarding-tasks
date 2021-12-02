@@ -1,12 +1,15 @@
 <?php
+/**
+ * Managing plugin dependencies and loading the plugin.
+ *
+ * @package MyOnboardingPlugin
+ * @author  Martin Nestorov
+ */
 
-namespace MyOnboardingPlugin {
+namespace My_Onboarding_Plugin {
 
 	/**
-	 * A class for managing plugin dependencies and loading the plugin.
-	 *
-	 * @package    MyOnboardingPlugin
-	 * @author     Martin Nestorov
+	 * Loading all dependencies
 	 */
 	class Bootstrap {
 
@@ -43,9 +46,9 @@ namespace MyOnboardingPlugin {
 		 * @return void
 		 */
 		public function dx_run() {
-			$this->loader = new \EnqueueScripts();
-			$this->loader = new \InsertContent();
-			$this->loader = new \PluginFilter();
+			$this->loader = new \Enqueue_Scripts();
+			$this->loader = new \Insert_Content();
+			$this->loader = new \Plugin_Filter();
 		}
 	}
 }

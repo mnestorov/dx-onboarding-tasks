@@ -46,4 +46,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once 'includes/classes/class-bootstrap.php';
 
 // Instantiate the bootstrap (master) class.
-$bootstrap = new \MyPluginSettings\Bootstrap();
+$bootstrap = new \My_Plugin_Settings\Bootstrap();

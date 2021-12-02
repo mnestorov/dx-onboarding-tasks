@@ -1,12 +1,15 @@
 <?php
+/**
+ * Managing plugin dependencies and loading the plugin.
+ *
+ * @package MyPluginSettings
+ * @author  Martin Nestorov
+ */
 
-namespace MyPluginSettings {
+namespace My_Plugin_Settings {
 
 	/**
-	 * A class for managing plugin dependencies and loading the plugin.
-	 *
-	 * @package    MyPluginSettings
-	 * @author     Martin Nestorov
+	 * Loading all dependencies
 	 */
 	class Bootstrap {
 
@@ -41,7 +44,7 @@ namespace MyPluginSettings {
 		 * @return void
 		 */
 		public function dx_run() {
-			$this->loader = new \PluginSettings();
+			$this->loader = new \Plugin_Settings();
 		}
 	}
 }
