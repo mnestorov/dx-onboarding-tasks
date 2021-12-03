@@ -13,7 +13,7 @@ if ( ! class_exists( 'Enqueue_Scripts' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'admin_enqueue_scripts', array( $this, 'dx_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 
 		/**
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Enqueue_Scripts' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_enqueue_scripts() {
+		public function enqueue_scripts() {
 			wp_enqueue_script( 'dx_enabled_filters_script', MPF_PATH . './includes/assets/js/main.js', array( 'jquery' ) );
 			wp_localize_script(
 				'dx_enabled_filters_script',

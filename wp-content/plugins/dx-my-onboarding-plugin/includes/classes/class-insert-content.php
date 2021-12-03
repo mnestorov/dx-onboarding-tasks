@@ -12,10 +12,10 @@ if ( ! class_exists( 'Insert_Content' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_filter( 'the_content', array( $this, 'dx_insert_before_content' ), 10 );
-			add_filter( 'the_content', array( $this, 'dx_opening_p' ), 9 );
-			add_filter( 'the_content', array( $this, 'dx_closing_p' ), 11 );
-			add_filter( 'the_content', array( $this, 'dx_text_wrapper' ) );
+			add_filter( 'the_content', array( $this, 'insert_before_content' ), 10 );
+			add_filter( 'the_content', array( $this, 'opening_p' ), 9 );
+			add_filter( 'the_content', array( $this, 'closing_p' ), 11 );
+			add_filter( 'the_content', array( $this, 'text_wrapper' ) );
 		}
 
 		/**
@@ -24,7 +24,7 @@ if ( ! class_exists( 'Insert_Content' ) ) {
 		 * @param string $content contains the page content.
 		 * @return $content
 		 */
-		public function dx_insert_before_content( $content ) {
+		public function insert_before_content( $content ) {
 			/**
 			 * Important:
 			 * 1) get_option( 'my-onboarding-plugin-option' ) comes from PluginSettings plugin
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Insert_Content' ) ) {
 		 * @param string $content contains opening html <p> tag.
 		 * @return $content
 		 */
-		public function dx_opening_p( $content ) {
+		public function opening_p( $content ) {
 			$content = $content . '<p>';
 			return $content;
 		}
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Insert_Content' ) ) {
 		 * @param string $content contains closing html <p> tag.
 		 * @return $content
 		 */
-		public function dx_closing_p( $content ) {
+		public function closing_p( $content ) {
 			$content = $content . '</p>';
 			return $content;
 		}
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Insert_Content' ) ) {
 		 * @param string $content contains html content of the page.
 		 * @return string
 		 */
-		public function dx_text_wrapper( $content ) {
+		public function text_wrapper( $content ) {
 			return preg_replace_callback(
 				'~<p.*?</p>~',
 				function( $matches ) {

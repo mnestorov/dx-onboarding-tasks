@@ -20,8 +20,8 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 */
 		public function __construct() {
 			$this->namespace = '/api/v1';
-			add_action( 'rest_api_init', array( $this, 'dx_register_api_endpoints' ) );
-			add_action( 'rest_insert_page', array( $this, 'dx_add_content_to_post_meta' ), 10, 3 );
+			add_action( 'rest_api_init', array( $this, 'register_api_endpoints' ) );
+			add_action( 'rest_insert_page', array( $this, 'add_content_to_post_meta' ), 10, 3 );
 		}
 
 		/**
@@ -29,9 +29,9 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 *
 		 * @return true
 		 */
-		public function dx_get_item_permissions_check() {
+		public function get_item_permissions_check() {
 			if ( ! current_user_can( 'edit_others_posts' ) ) {
-				return new \WP_Error( 'rest_forbidden', esc_html__( 'You do not have permission to do this.' ), array( 'status' => $this->dx_authorization_status_code() ) );
+				return new \WP_Error( 'rest_forbidden', esc_html__( 'You do not have permission to do this.' ), array( 'status' => $this->authorization_status_code() ) );
 			}
 			return true;
 		}
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 * @var int $status
 		 * @return $status
 		 */
-		public function dx_authorization_status_code() {
+		public function authorization_status_code() {
 			$status = 401;
 
 			if ( is_user_logged_in() ) {
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 * @param \WP_REST_Request $request contains data from the request, to be passed to the callback.
 		 * @return rest_ensure_response()
 		 */
-		public function dx_get_all_student_data( \WP_REST_Request $request ) {
+		public function get_all_student_data( \WP_REST_Request $request ) {
 			$page = intval( $request['page'] );
 
 			$args = array(
@@ -119,7 +119,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 * @param \WP_REST_Request $request retrieves merged parameters from the request.
 		 * @return rest_ensure_response()
 		 */
-		public function dx_get_single_student_data( \WP_REST_Request $request ) {
+		public function get_single_student_data( \WP_REST_Request $request ) {
 			$post_id = $request->get_params();
 
 			$args = array(
@@ -156,7 +156,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 * @param object $request retrieves the request body content.
 		 * @return false
 		 */
-		public function dx_add_new_student_data( $request ) {
+		public function add_new_student_data( $request ) {
 			$body = $request->get_body();
 
 			//error_log( print_r( $body, true ) );
@@ -190,7 +190,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 * @param object $request retrieves the request body content.
 		 * @return false
 		 */
-		public function dx_edit_student( $request ) {
+		public function edit_student( $request ) {
 			$body = $request->get_body();
 
 			// error_log( print_r( $body, true ) );
@@ -224,7 +224,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 * @param object $request retrieves the request id.
 		 * @return rest_ensure_response()
 		 */
-		public function dx_delete_student_by_id( $request ) {
+		public function delete_student_by_id( $request ) {
 			$post = wp_delete_post( $request['id'] );
 
 			return rest_ensure_response( $post );
@@ -235,7 +235,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_register_api_endpoints() {
+		public function register_api_endpoints() {
 			/**
 			 * API Url: /api/v1/students/[page_number]
 			 */
@@ -244,7 +244,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 				'/students/(?P<page>[1-9]{1,2})',
 				array(
 					'methods'             => 'GET',
-					'callback'            => array( $this, 'dx_get_all_student_data' ),
+					'callback'            => array( $this, 'get_all_student_data' ),
 					'args'                => array(
 						'page' => array(
 							'required' => true,
@@ -262,7 +262,7 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 				'/student/(?P<id>[\d]+)',
 				array(
 					'methods'             => 'GET',
-					'callback'            => array( $this, 'dx_get_single_student_data' ),
+					'callback'            => array( $this, 'get_single_student_data' ),
 					'permission_callback' => '__return_true',
 				)
 			);
@@ -275,8 +275,8 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 				'/student/add/',
 				array(
 					'methods'             => 'POST',
-					'callback'            => array( $this, 'dx_add_new_student_data' ),
-					'permission_callback' => array( $this, 'dx_get_item_permissions_check' ),
+					'callback'            => array( $this, 'add_new_student_data' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 				)
 			);
 
@@ -288,8 +288,8 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 				'/student/edit/(?P<id>[\d]+)',
 				array(
 					'methods'             => 'PUT',
-					'callback'            => array( $this, 'dx_edit_student' ),
-					'permission_callback' => array( $this, 'dx_get_item_permissions_check' ),
+					'callback'            => array( $this, 'edit_student' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 				)
 			);
 
@@ -301,8 +301,8 @@ if ( ! class_exists( 'Student_Rest_Api' ) ) {
 				'/student/delete/(?P<id>[\d]+)',
 				array(
 					'methods'             => 'DELETE',
-					'callback'            => array( $this, 'dx_delete_student_by_id' ),
-					'permission_callback' => array( $this, 'dx_get_item_permissions_check' ),
+					'callback'            => array( $this, 'delete_student_by_id' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 				)
 			);
 		}

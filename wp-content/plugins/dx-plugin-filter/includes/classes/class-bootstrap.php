@@ -24,8 +24,8 @@ namespace My_Plugin_Filter {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
-			add_action( 'init', array( $this, 'dx_run' ), 0 );
+			add_action( 'plugins_loaded', array( $this, 'include' ), 10 );
+			add_action( 'init', array( $this, 'run' ), 0 );
 		}
 
 		/**
@@ -33,7 +33,7 @@ namespace My_Plugin_Filter {
 		 *
 		 * @return void
 		 */
-		public function dx_include() {
+		public function include() {
 			// Include the classes.
 			require_once 'class-enqueue-scripts.php';
 			require_once 'class-plugin-filter.php';
@@ -44,7 +44,7 @@ namespace My_Plugin_Filter {
 		 *
 		 * @return void
 		 */
-		public function dx_run() {
+		public function run() {
 			$this->loader = new \Enqueue_Scripts();
 			$this->loader = new \Plugin_Filter();
 		}

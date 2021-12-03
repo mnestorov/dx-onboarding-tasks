@@ -12,8 +12,8 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'admin_menu', array( $this, 'dx_add_plugin_page' ) );
-			add_action( 'admin_init', array( $this, 'dx_page_init' ) );
+			add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+			add_action( 'admin_init', array( $this, 'page_init' ) );
 		}
 
 		/**
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_add_plugin_page() {
+		public function add_plugin_page() {
 			add_menu_page(
 				'My Onboarding Plugin',                  // This is page_title.
 				'My Onboarding Plugin',                  // This is menu_title.
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_create_admin_page() {
+		public function create_admin_page() {
 			$this->dx_options = get_option( 'my_onboarding_plugin_option' ); ?>
 			<div class="wrap">
 				<h2><?php esc_html_e( 'My Onboarding Plugin', 'mop'); ?></h2>
@@ -60,7 +60,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_page_init() {
+		public function page_init() {
 			register_setting(
 				'dx_option_group',                     // This is option_group.
 				'my_onboarding_plugin_option',         // This is option_name.
@@ -87,7 +87,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 * @param array $input
 		 * @return void
 		 */
-		public function dx_sanitize( $input ) {
+		public function sanitize( $input ) {
 			$sanitary_values = array();
 			if ( isset( $input['filter'] ) ) {
 				$sanitary_values['filter'] = sanitize_text_field( $input['filter'] );
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_section_info() {
+		public function section_info() {
 			// Add some code in here.
 		}
 
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_filter_callback() {
+		public function filter_callback() {
 			printf(
 				'<input type="checkbox" name="my_onboarding_plugin_option[filter]" id="filter" value="filter" %s>',
 				( isset( $this->dx_options['filter'] ) ?? '' ) ? 'checked' : ''

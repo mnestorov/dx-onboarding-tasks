@@ -24,8 +24,8 @@ namespace Display_Remote_Urls {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
-			add_action( 'init', array( $this, 'dx_run' ), 0 );
+			add_action( 'plugins_loaded', array( $this, 'include' ), 10 );
+			add_action( 'init', array( $this, 'run' ), 0 );
 		}
 
 		/**
@@ -33,7 +33,7 @@ namespace Display_Remote_Urls {
 		 *
 		 * @return void
 		 */
-		public function dx_include() {
+		public function include() {
 			// Include the classes.
 			require_once 'class-display-remote-urls.php';
 		}
@@ -43,7 +43,7 @@ namespace Display_Remote_Urls {
 		 *
 		 * @return void
 		 */
-		public function dx_run() {
+		public function run() {
 			$this->loader = new \Display_Remote_Urls();
 		}
 	}

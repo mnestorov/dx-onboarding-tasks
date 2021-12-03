@@ -12,9 +12,9 @@ if ( ! class_exists( 'Plugin_Filter' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'admin_menu', array( $this, 'dx_add_plugin_page' ) );
-			add_action( 'admin_init', array( $this, 'dx_page_init' ) );
-			add_action( 'wp_ajax_dx_enable_filters', array( $this, 'dx_enable_filters' ) );
+			add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+			add_action( 'admin_init', array( $this, 'page_init' ) );
+			add_action( 'wp_ajax_dx_enable_filters', array( $this, 'enable_filters' ) );
 		}
 
 		/**
@@ -22,13 +22,13 @@ if ( ! class_exists( 'Plugin_Filter' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_add_plugin_page() {
+		public function add_plugin_page() {
 			add_menu_page(
 				'Student CPT Admin',                     // This is page_title.
 				'Student CPT Settings',                  // This is menu_title.
 				'manage_options',                        // This is capability.
 				'student-cpt',                           // This is menu_slug.
-				array( $this, 'dx_create_admin_page' ),  // This is function.
+				array( $this, 'create_admin_page' ),  // This is function.
 				'dashicons-admin-generic',               // This is icon_url.
 				65                                       // This is position.
 			);
@@ -60,7 +60,7 @@ if ( ! class_exists( 'Plugin_Filter' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_page_init() {
+		public function page_init() {
 			register_setting(
 				'dx_option_group',                    // This is option_group.
 				'is_checked',                         // This is option_name.
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Plugin_Filter' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_section_info() {
+		public function section_info() {
 			// Add some code in here.
 		}
 
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Plugin_Filter' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_filter_callback() {
+		public function filter_callback() {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_die( __( 'You don\'t have permissions to access this page.' ) );
 			} ?>
@@ -110,7 +110,7 @@ if ( ! class_exists( 'Plugin_Filter' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_enable_filters() {
+		public function enable_filters() {
 			$student_cpt_option = $_POST['is_checked'];
 			update_option( 'is_checked', $student_cpt_option );
 			wp_die();

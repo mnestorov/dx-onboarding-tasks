@@ -24,8 +24,8 @@ namespace Student_Cpt {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'plugins_loaded', array( $this, 'dx_include' ), 10 );
-			add_action( 'init', array( $this, 'dx_run' ), 0 );
+			add_action( 'plugins_loaded', array( $this, 'include' ), 10 );
+			add_action( 'init', array( $this, 'run' ), 0 );
 			add_action( 'rest_api_init', array( $this, 'init_wp_rest_multiple_post_type_endpoint' ) );
 		}
 
@@ -44,7 +44,7 @@ namespace Student_Cpt {
 		 *
 		 * @return void
 		 */
-		public function dx_include() {
+		public function include() {
 			// Include the classes.
 			require_once 'class-student-cpt.php';
 			require_once 'class-student-sidebar.php';
@@ -61,7 +61,7 @@ namespace Student_Cpt {
 		 *
 		 * @return void
 		 */
-		public function dx_run() {
+		public function run() {
 			$this->loader = new \Student_CPT();
 			$this->loader = new \Student_Sidebar();
 			$this->loader = new \Student_Widget();

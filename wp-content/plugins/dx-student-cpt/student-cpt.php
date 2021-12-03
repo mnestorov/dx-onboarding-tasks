@@ -52,5 +52,7 @@ if ( ! defined( 'SCPT_URL_PATH' ) ) {
 // Include the bootstrap (master) class.
 require_once 'includes/classes/class-bootstrap.php';
 
+require_once 'includes/vendor/basic-auth.php';
+
 // Instantiate the bootstrap (master) class.
 $bootstrap = new \Student_Cpt\Bootstrap();

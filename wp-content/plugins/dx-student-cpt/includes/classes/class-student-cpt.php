@@ -3,7 +3,6 @@
 if ( ! class_exists( 'Student_CPT' ) ) {
 	/**
 	 * Class Student_CPT
-	 * Asana task: https://app.asana.com/0/1201345304239951/1201345347126925/f
 	 *
 	 * @package    StudentCPT
 	 * @author     Martin Nestorov
@@ -13,16 +12,16 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'init', array( $this, 'dx_register_student_type' ) );
-			add_action( 'add_meta_boxes', array( $this, 'dx_add_student_meta_boxes' ) );
-			add_action( 'save_post', array( $this, 'dx_save_meta_boxes' ) );
-			add_action( 'manage_student_posts_custom_column', array( $this, 'dx_student_columns_content' ), 10, 2 );
-			add_filter( 'manage_student_posts_columns', array( $this, 'dx_student_add_default_column' ) );
-			add_shortcode( 'student', array( $this, 'dx_display_student_shortcode' ) );
-			add_shortcode( 'students-list', array( $this, 'dx_students_listing_shortcode' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'dx_student_cpt_load_javascript' ) );
-			add_action( 'wp_ajax_toggle_student_activated', array( $this, 'dx_toggle_student_activated' ) );
-			add_action( 'widgets_init', array( $this, 'dx_student_load_widget' ) );
+			add_action( 'init', array( $this, 'register_student_type' ) );
+			add_action( 'add_meta_boxes', array( $this, 'add_student_meta_boxes' ) );
+			add_action( 'save_post', array( $this, 'save_meta_boxes' ) );
+			add_action( 'manage_student_posts_custom_column', array( $this, 'student_columns_content' ), 10, 2 );
+			add_filter( 'manage_student_posts_columns', array( $this, 'student_add_default_column' ) );
+			add_shortcode( 'student', array( $this, 'display_student_shortcode' ) );
+			add_shortcode( 'students-list', array( $this, 'students_listing_shortcode' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'student_cpt_load_javascript' ) );
+			add_action( 'wp_ajax_toggle_student_activated', array( $this, 'toggle_student_activated' ) );
+			add_action( 'widgets_init', array( $this, 'student_load_widget' ) );
 		}
 
 		/**
@@ -30,7 +29,7 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_register_student_type() {
+		public function register_student_type() {
 			$labels = array(
 				'name'                  => _x( 'Students', 'Post type general name', 'studentsctp' ),
 				'singular_name'         => _x( 'Student', 'Post type singular name', 'studentsctp' ),
@@ -68,53 +67,49 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 
 		/**
 		 * The callback which displays the input box for the city meta
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 * @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
-		public function dx_city_meta_box( $post ) {
+		public function city_meta_box( $post ) {
 			$value = get_post_meta( $post->ID, 'student_city', true );
 			?>
 				<label for="city"> City: </label>
-				<input type="text" name="city" value=" <?php echo ( esc_html( isset( $value ) ? $value : '' ) ); // Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f ?>">
+				<input type="text" name="city" value=" <?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 			<?php
 		}
 
 		/**
 		 * The callback which displays the input box for the address meta
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 *  @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
-		public function dx_address_meta_box( $post ) {
+		public function address_meta_box( $post ) {
 			$value = get_post_meta( $post->ID, 'student_address', true );
 			?>
 				<label for="address"> Address: </label>
-				<input type="text" name="address" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); // Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f ?>">
+				<input type="text" name="address" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 			<?php
 		}
 
 		/**
 		 * The callback which displays the input box for the city meta
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 *  @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
-		public function dx_birthdate_meta_box( $post ) {
+		public function birthdate_meta_box( $post ) {
 			$value = get_post_meta( $post->ID, 'student_birthdate', true );
 			?>
 				<label for="birthdate"> Birth Date: </label>
-				<input type="date" name="birthdate" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); // Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f ?>">
+				<input type="date" name="birthdate" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 			<?php
 		}
 
 		/**
 		 * The callback which displays the input box for the student grade meta
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 *  @param student $post is provided, because the ID is needed for the get_post_meta().
 		 */
-		public function dx_student_grade_meta_box( $post ) {
+		public function student_grade_meta_box( $post ) {
 			$value = get_post_meta( $post->ID, 'student_grade', true );
 			?>
 				<label for="grade">Grade:</label>
@@ -131,11 +126,10 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 
 		/**
 		 * Adds all student meta boxes
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 * @return void
 		 */
-		public function dx_add_student_meta_boxes() {
+		public function add_student_meta_boxes() {
 			add_meta_box(
 				'student_city',
 				'City',
@@ -164,18 +158,14 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 
 		/**
 		 * Describes how the meta data from the meta boxes will be saved
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229531039/f
 		 *
 		 * @param int $post_id specifies the ID of the post that is being saved.
 		 */
-		public function dx_save_meta_boxes( $post_id ) {
+		public function save_meta_boxes( $post_id ) {
 			if ( array_key_exists( 'city', $_POST ) ) {
 				update_post_meta(
 					$post_id,
 					'student_city',
-					/**
-					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
-					 */
 					sanitize_text_field( $_POST['city'] ),
 				);
 			}
@@ -183,9 +173,6 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 				update_post_meta(
 					$post_id,
 					'student_address',
-					/**
-					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
-					 */
 					sanitize_text_field( $_POST['address'] ),
 				);
 			}
@@ -193,9 +180,6 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 				update_post_meta(
 					$post_id,
 					'student_birthdate',
-					/**
-					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
-					 */
 					sanitize_text_field( $_POST['birthdate'] ),
 				);
 			}
@@ -203,33 +187,28 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 				update_post_meta(
 					$post_id,
 					'student_grade',
-					/**
-					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229572231/f
-					 */
 					sanitize_text_field( $_POST['grade'] ),
 				);
 			}
 		}
 		/**
 		 * Adds the Active checkbox to the student CPT admin panel
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
 		 *
 		 * @param array $defaults an array containing the default admin panel columns.
 		 */
-		public function dx_student_add_default_column( $defaults ) {
+		public function student_add_default_column( $defaults ) {
 			$defaults['active'] = 'Active';
 			return $defaults;
 		}
 
 		/**
 		 * The callback for the Active checkbox
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
 		 *
 		 * @param string $column_name
 		 * @param int    $post_ID
 		 * @return void
 		 */
-		public function dx_student_columns_content( $column_name, $post_ID ) {
+		public function student_columns_content( $column_name, $post_ID ) {
 			if ( 'active' === $column_name ) {
 				?>
 				<input type="checkbox" name="active_student_checkbox" class="active_student_checkbox" id="<?php echo $post_ID; ?>" <?php checked( get_post_meta( $post_ID, 'student_active', true ), 'active' ); ?>>
@@ -242,19 +221,18 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 		 *
 		 * @return void
 		 */
-		public function dx_student_cpt_load_javascript() {
+		public function student_cpt_load_javascript() {
 			wp_register_script( 'student_ajax_calls', SCPT_URL_PATH . './includes/assets/js/ajax.js', array( 'jquery' ), false, true );
 			wp_enqueue_script( 'student_ajax_calls' );
 		}
 
 		/**
 		 * Student CPT shortcode
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229477769/f
 		 *
 		 * @param array $atts practically accepts only one attribute and it is a Student's ID.
 		 * @return $student_display
 		 */
-		public function dx_display_student_shortcode( $atts ) {
+		public function display_student_shortcode( $atts ) {
 			$student_display = '';
 
 			$student = shortcode_atts(
@@ -286,9 +264,6 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 						<?php
 					}
 				} else {
-					/**
-					 * Asana task: https://app.asana.com/0/1201345304239951/1201345229500262/f
-					 */
 					echo '<h2>Students with the specified ID were not found.</h2>';
 				}
 
@@ -303,14 +278,13 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 
 		/**
 		 * Create Shortcode to display list of students
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229500262/f
 		 *
 		 * @var string $listing_display
 		 *
 		 * @param array $atts contains shortcode attributes for isplaying requested data.
 		 * @return $listing_display which contains html data.
 		 */
-		public function dx_students_listing_shortcode( $atts ) {
+		public function students_listing_shortcode( $atts ) {
 			$listing_display = '';
 
 			$student = shortcode_atts(
@@ -347,11 +321,10 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 
 		/**
 		 * Changes the Students CPT meta from active to inactive
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345347042607/f
 		 *
 		 * @return void
 		 */
-		public function dx_toggle_student_activated() {
+		public function toggle_student_activated() {
 			if ( isset( $_POST['student_id'] ) ) {
 				$student_id = $_POST['student_id'];
 			}
@@ -369,11 +342,10 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 
 		/**
 		 * Register the student widget
-		 * Asana task: https://app.asana.com/0/1201345304239951/1201345229251143/f
 		 *
 		 * @return void
 		 */
-		public function dx_student_load_widget() {
+		public function student_load_widget() {
 			register_widget( 'Student_Widget' );
 		}
 	}
