@@ -29,3 +29,7 @@ Path to files: *`wp-content/plugins/dx-plugin-filter`*
 ### **dx-display-remote-urls**
 
 Path to files: *`wp-content/plugins/dx-display-remote-urls`*
+
+### **dx-show-students**
+
+Path to files: *`wp-content/plugins/dx-show-students`*
