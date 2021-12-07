@@ -33,7 +33,7 @@ namespace My_Onboarding_Plugin {
 		 *
 		 * @return void
 		 */
-		public function dx_include() {
+		public function include() {
 			// Include the classes.
 			require_once 'class-enqueue-scripts.php';
 			require_once 'class-insert-content.php';
@@ -45,7 +45,7 @@ namespace My_Onboarding_Plugin {
 		 *
 		 * @return void
 		 */
-		public function dx_run() {
+		public function run() {
 			$this->loader = new \Enqueue_Scripts();
 			$this->loader = new \Insert_Content();
 			$this->loader = new \Plugin_Filter();

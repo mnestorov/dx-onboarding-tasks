@@ -22,12 +22,12 @@ if ( ! class_exists( 'Enqueue_Scripts' ) ) {
 		 * @return void
 		 */
 		public function enqueue_scripts() {
-			wp_enqueue_script( 'dx_enabled_filters_script', MOP_PATH . './includes/assets/js/main.js', array( 'jquery' ) );
+			wp_enqueue_script( 'enabled_filters_script', MOP_PATH . './includes/assets/js/main.js', array( 'jquery' ) );
 			wp_localize_script(
-				'dx_enabled_filters_script',
-				'dx_enabled_filters_object',
+				'enabled_filters_script',
+				'enabled_filters_object',
 				array(
-					'dx_enabled_filters_url' => admin_url( 'admin-ajax.php' ),
+					'enabled_filters_url' => admin_url( 'admin-ajax.php' ),
 				)
 			);
 		}

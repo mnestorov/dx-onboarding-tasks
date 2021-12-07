@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
         let postData = { 
             'remote_url' : url, 
             'transient_duration': duration,
-            'action' : 'dx_get_remote_url'
+            'action' : 'get_remote_url'
         }
         $.ajax({
             type: "POST",

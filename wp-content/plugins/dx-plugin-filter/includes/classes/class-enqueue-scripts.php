@@ -3,7 +3,6 @@
 if ( ! class_exists( 'Enqueue_Scripts' ) ) {
 	/**
 	 * Class Enqueue_Scripts
-	 * Asana task: https://app.asana.com/0/1201345304239951/1201345383459199/f
 	 *
 	 * @package    MyPluginFilter
 	 * @author     Martin Nestorov
@@ -22,12 +21,12 @@ if ( ! class_exists( 'Enqueue_Scripts' ) ) {
 		 * @return void
 		 */
 		public function enqueue_scripts() {
-			wp_enqueue_script( 'dx_enabled_filters_script', MPF_PATH . './includes/assets/js/main.js', array( 'jquery' ) );
+			wp_enqueue_script( 'enabled_filters_script', MPF_PATH . './includes/assets/js/main.js', array( 'jquery' ) );
 			wp_localize_script(
-				'dx_enabled_filters_script',
-				'dx_enabled_filters_object',
+				'enabled_filters_script',
+				'enabled_filters_object',
 				array(
-					'dx_enabled_filters_url' => admin_url( 'admin-ajax.php' ),
+					'enabled_filters_url' => admin_url( 'admin-ajax.php' ),
 				)
 			);
 		}

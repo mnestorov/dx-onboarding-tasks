@@ -2,7 +2,6 @@
 if ( ! class_exists( 'Display_Remote_Urls' ) ) {
 	/**
 	 * Class Display_Remote_Urls
-	 * Asana task: https://app.asana.com/0/1201345304239951/1201345383490682/f
 	 *
 	 * @package    DisplayRemoteUrls
 	 * @author     Martin Nestorov
@@ -14,7 +13,7 @@ if ( ! class_exists( 'Display_Remote_Urls' ) ) {
 		public function __construct() {
 			add_action( 'admin_menu', array( $this, 'sanitized_links_plugin_menu' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
-			add_action( 'wp_ajax_dx_get_remote_url', array( $this, 'get_remote_url' ) );
+			add_action( 'wp_ajax_get_remote_url', array( $this, 'get_remote_url' ) );
 		}
 
 		/**

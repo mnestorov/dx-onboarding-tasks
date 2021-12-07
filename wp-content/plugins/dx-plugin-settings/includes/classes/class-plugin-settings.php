@@ -27,7 +27,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 				'My Onboarding Plugin',                  // This is menu_title.
 				'manage_options',                        // This is capability.
 				'my-onboarding-plugin',                  // This is menu_slug.
-				array( $this, 'dx_create_admin_page' ),  // This is function.
+				array( $this, 'create_admin_page' ),     // This is function.
 				'dashicons-admin-generic',               // This is icon_url.
 				65                                       // This is position.
 			);
@@ -46,8 +46,8 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 				<?php settings_errors(); ?>
 				<form method="post" action="options.php">
 					<?php
-						settings_fields( 'dx_option_group' );
-						do_settings_sections( 'dx-admin' );
+						settings_fields( 'option_group' );
+						do_settings_sections( 'admin' );
 						submit_button();
 					?>
 				</form>
@@ -62,22 +62,22 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		 */
 		public function page_init() {
 			register_setting(
-				'dx_option_group',                     // This is option_group.
+				'option_group',                        // This is option_group.
 				'my_onboarding_plugin_option',         // This is option_name.
-				array( $this, 'dx_sanitize' )          // This is sanitize_callback.
+				array( $this, 'sanitize' )             // This is sanitize_callback.
 			);
 			add_settings_section(
-				'dx_setting_section',                  // This is id.
+				'setting_section',                     // This is id.
 				'Settings',                            // This is title.
-				array( $this, 'dx_section_info' ),     // This is callback.
-				'dx-admin'                             // This is page.
+				array( $this, 'section_info' ),        // This is callback.
+				'admin'                                // This is page.
 			);
 			add_settings_field(
-				'dx-checkbox',                          // This is id.
+				'checkbox',                             // This is id.
 				'Filter',                               // This is title.
-				array( $this, 'dx_filter_callback' ),   // This is callback.
-				'dx-admin',                             // This is page.
-				'dx_setting_section'                    // This is section.
+				array( $this, 'filter_callback' ),      // This is callback.
+				'admin',                                // This is page.
+				'setting_section'                       // This is section.
 			);
 		}
 
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Plugin_Settings' ) ) {
 		public function filter_callback() {
 			printf(
 				'<input type="checkbox" name="my_onboarding_plugin_option[filter]" id="filter" value="filter" %s>',
-				( isset( $this->dx_options['filter'] ) ?? '' ) ? 'checked' : ''
+				( isset( $this->options['filter'] ) ?? '' ) ? 'checked' : ''
 			);
 		}
 	}

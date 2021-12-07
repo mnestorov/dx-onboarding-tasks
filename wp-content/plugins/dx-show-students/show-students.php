@@ -21,7 +21,7 @@
  *
  * @return void
  */
-function dx_create_block_show_students_init() {
+function create_block_show_students_init() {
 	register_block_type(
 		__DIR__,
 		array(
@@ -30,7 +30,7 @@ function dx_create_block_show_students_init() {
 	);
 }
 
-add_action( 'init', 'dx_create_block_show_students_init' );
+add_action( 'init', 'create_block_show_students_init' );
 
 add_action(
 	'wp_loaded',
@@ -57,7 +57,7 @@ add_action(
  * @param array $block_attributes provides information about the data stored by a block.
  * @return $html_content
  */
-function dx_load_students_in_block( $block_attributes ) {
+function load_students_in_block( $block_attributes ) {
 
 	$args = array(
 		'post_type'      => 'student',
@@ -74,6 +74,7 @@ function dx_load_students_in_block( $block_attributes ) {
 	while ( $get_query->have_posts() ) {
 		$get_query->the_post();
 
+		// Here we are using our student shortcode.
 		$html_content = $html_content . '[student student_id=' . get_the_ID() . ']';
 	}
 

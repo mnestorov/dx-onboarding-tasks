@@ -12,16 +12,21 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
+			// Actions.
 			add_action( 'init', array( $this, 'register_student_type' ) );
 			add_action( 'add_meta_boxes', array( $this, 'add_student_meta_boxes' ) );
 			add_action( 'save_post', array( $this, 'save_meta_boxes' ) );
 			add_action( 'manage_student_posts_custom_column', array( $this, 'student_columns_content' ), 10, 2 );
-			add_filter( 'manage_student_posts_columns', array( $this, 'student_add_default_column' ) );
-			add_shortcode( 'student', array( $this, 'display_student_shortcode' ) );
-			add_shortcode( 'students-list', array( $this, 'students_listing_shortcode' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'student_cpt_load_javascript' ) );
 			add_action( 'wp_ajax_toggle_student_activated', array( $this, 'toggle_student_activated' ) );
 			add_action( 'widgets_init', array( $this, 'student_load_widget' ) );
+
+			// Filters.
+			add_filter( 'manage_student_posts_columns', array( $this, 'student_add_default_column' ) );
+
+			// Shortcodes.
+			add_shortcode( 'student', array( $this, 'display_student_shortcode' ) );
+			add_shortcode( 'students-list', array( $this, 'students_listing_shortcode' ) );
 		}
 
 		/**
@@ -133,25 +138,25 @@ if ( ! class_exists( 'Student_CPT' ) ) {
 			add_meta_box(
 				'student_city',
 				'City',
-				array( $this, 'dx_city_meta_box' ),
+				array( $this, 'city_meta_box' ),
 				'student'
 			);
 			add_meta_box(
 				'student_address',
 				'Address',
-				array( $this, 'dx_address_meta_box' ),
+				array( $this, 'address_meta_box' ),
 				'student'
 			);
 			add_meta_box(
 				'student_birthdate',
 				'Birth Date',
-				array( $this, 'dx_birthdate_meta_box' ),
+				array( $this, 'birthdate_meta_box' ),
 				'student'
 			);
 			add_meta_box(
 				'student_grade',
 				'Grade',
-				array( $this, 'dx_student_grade_meta_box' ),
+				array( $this, 'student_grade_meta_box' ),
 				'student'
 			);
 		}
