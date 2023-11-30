@@ -1,14 +1,27 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/wordpress/wordpress.png" width="100" alt="Laravel Logo"></a></p>
 
-# DevriX Onboarding Tasks 
+# DevriX - Onboarding Tasks 
 
-[![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
+![Licence](https://img.shields.io/badge/Unlicense-red)
 
 ## Overview
 
-**This repository has been created with the purpose of documenting and tracking my progress on the onboarding process in DevriX. The objective of this repository is educational only! This repository will serve as a visual representation of my progress, highlighting the various stages of my onboarding and WordPress journey. This repository will provide a centralized location to showcase my onboarding projects, including themes, plugins, customizations, and any other onboarding-related work.**
+This repository has been created with the purpose of documenting and tracking my progress on the onboarding process in DevriX.
 
-Here are all the tasks performed so far in terms of the onboarding process in DevriX. The tasks are divided into two main categories.
+## Description
+
+**The objective of this repository is educational only!**
+
+This repository will serve as a visual representation of my progress, highlighting the various stages of my onboarding and WordPress journey. 
+
+This repository will provide a centralized location to showcase my onboarding projects, including themes, plugins, customizations, and any other onboarding-related work.
+
+Here are all the tasks performed in terms of the onboarding process in DevriX. 
+
+**The tasks are divided into two main categories:**
+
+- Understanding WordPress Themes and Child Themes
+- Understanding WordPress Plugins
 
 ## Understanding WordPress Themes and Child Themes
 
@@ -71,4 +84,4 @@ Happy exploring and learning the WordPress!
 
 ## License
 
-This project is released under the MIT License.
+This repository is unlicense[d], so feel free to fork.
